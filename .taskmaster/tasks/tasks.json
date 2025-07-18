@@ -1,0 +1,2718 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Project Setup and Version Control",
+        "description": "Initialize the Godot 4+ project, set up the file structure (scenes, scripts, assets), and configure the version control system (Git).",
+        "details": "Create a new Godot 4.2+ project. Establish standard folders: /scenes, /scripts, /assets, /ui. Initialize a Git repository with a .gitignore file appropriate for Godot projects to exclude cache and import files.",
+        "testStrategy": "Verify that the project opens correctly in the Godot editor and that the initial file structure is present. Confirm that `git status` shows a clean working directory after initial commit.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create New Godot 4.2+ Project",
+            "description": "Initialize a new Godot project using version 4.2 or higher.",
+            "dependencies": [],
+            "details": "Open the Godot editor and create a new project, specifying the project name and directory.",
+            "status": "pending",
+            "testStrategy": "Verify that the project opens successfully in the Godot editor and that the project.godot file is present."
+          },
+          {
+            "id": 2,
+            "title": "Establish Standard Folder Structure",
+            "description": "Set up the recommended directory structure for scenes, scripts, assets, and UI.",
+            "dependencies": [
+              1
+            ],
+            "details": "Within the project directory, create the following folders: /scenes, /scripts, /assets, /ui. This helps maintain organization and scalability as the project grows[1][2].",
+            "status": "pending",
+            "testStrategy": "Confirm that all specified folders exist in the project directory and are visible in the Godot editor's FileSystem dock."
+          },
+          {
+            "id": 3,
+            "title": "Configure .gitignore for Godot",
+            "description": "Create a .gitignore file tailored for Godot projects to exclude unnecessary files from version control.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add a .gitignore file at the root of the project. Ensure it excludes Godot-specific cache and import files (e.g., .import/, .godot/, .mono/, *.import, *.tmp)[2].",
+            "status": "pending",
+            "testStrategy": "Run `git status` and verify that cache and import files are not listed as untracked or modified."
+          },
+          {
+            "id": 4,
+            "title": "Initialize Git Repository",
+            "description": "Set up Git version control for the project.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Run `git init` in the project root, add all files (excluding those in .gitignore), and make the initial commit.",
+            "status": "pending",
+            "testStrategy": "Check that `git status` shows a clean working directory after the initial commit."
+          },
+          {
+            "id": 5,
+            "title": "Verify Project Structure and Version Control Integration",
+            "description": "Ensure the Godot project and version control are correctly set up and integrated.",
+            "dependencies": [
+              4
+            ],
+            "details": "Open the project in Godot to confirm the folder structure is recognized. Use Git to confirm that only intended files are tracked and the repository is clean.",
+            "status": "pending",
+            "testStrategy": "Open the project in the Godot editor and verify all folders are present. Run `git status` to ensure no unintended files are tracked or missing."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Player Character Controller (Movement)",
+        "description": "Create a player character scene with a CharacterBody3D node for physics-based movement, including walking, running, and jumping.",
+        "details": "Use a `CharacterBody3D` node for the player. Implement movement logic in GDScript using `Input.get_vector` for direction and `velocity` property for movement. Handle gravity and jumping. The script should include variables for speed, sprint speed, and jump force.",
+        "testStrategy": "Playtest in a simple scene with a floor. Verify the player can move in all directions, jump, and that movement feels responsive. Check that gravity is applied correctly.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set Up CharacterBody3D Node and Scene",
+            "description": "Create a new scene with a CharacterBody3D node as the root. Add a MeshInstance3D and CollisionShape3D to visually and physically represent the player.",
+            "dependencies": [],
+            "details": "Ensure the CharacterBody3D node is properly configured as the player character. Attach a visible mesh (e.g., capsule) and a matching collision shape for accurate physics interactions.",
+            "status": "pending",
+            "testStrategy": "Verify the player character appears in the scene and collides correctly with the floor and other objects."
+          },
+          {
+            "id": 2,
+            "title": "Implement Basic Movement Logic",
+            "description": "Write GDScript to handle walking movement using Input.get_vector and the velocity property.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use Input.get_vector to read directional input and update the velocity.x and velocity.z components accordingly. Call move_and_slide() each frame to apply movement.",
+            "status": "pending",
+            "testStrategy": "Playtest to confirm the player can move smoothly in all directions using keyboard input."
+          },
+          {
+            "id": 3,
+            "title": "Add Running (Sprint) Mechanic",
+            "description": "Implement sprinting by increasing movement speed when a designated input (e.g., Shift) is held.",
+            "dependencies": [
+              2
+            ],
+            "details": "Introduce variables for normal speed and sprint speed. Detect sprint input and adjust the movement speed variable dynamically.",
+            "status": "pending",
+            "testStrategy": "Test that holding the sprint key increases movement speed and releasing it returns to normal speed."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Gravity and Jumping",
+            "description": "Handle gravity and implement jumping using velocity.y and input actions.",
+            "dependencies": [
+              2
+            ],
+            "details": "Apply gravity to velocity.y each frame. Check for jump input and if the character is on the floor, set velocity.y to a jump force value.",
+            "status": "pending",
+            "testStrategy": "Ensure the player falls when not on the ground and can jump only when grounded. Confirm jump height and gravity feel correct."
+          },
+          {
+            "id": 5,
+            "title": "Expose Movement Variables and Polish Controls",
+            "description": "Expose speed, sprint speed, and jump force as editable variables. Refine movement responsiveness and ensure all controls are intuitive.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Use export variables for speed, sprint speed, and jump force to allow easy tuning. Adjust input handling and acceleration for smooth, responsive movement.",
+            "status": "pending",
+            "testStrategy": "Adjust variables in the editor and verify changes in-game. Confirm that movement, sprinting, and jumping all feel responsive and natural."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "First-Person Camera Implementation",
+        "description": "Attach a camera to the player character to create a first-person perspective. Implement mouse-look for camera rotation.",
+        "details": "Parent a `Camera3D` node to the player's head position. In the player script's `_unhandled_input` function, capture `InputEventMouseMotion` to rotate the player node horizontally (Y-axis) and the camera node vertically (X-axis). Clamp the vertical rotation to prevent flipping.",
+        "testStrategy": "Move the mouse and verify the camera rotates correctly. Check that horizontal movement rotates the entire player body and vertical movement only tilts the camera. Ensure vertical tilt is clamped.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add and Position Camera3D Node",
+            "description": "Create a Camera3D node and parent it to the player's head position to ensure the camera moves with the player.",
+            "dependencies": [],
+            "details": "Insert a Camera3D node as a child of the player character, specifically at the head or eye level, to establish the first-person viewpoint.",
+            "status": "pending",
+            "testStrategy": "Run the scene and verify that the camera follows the player’s head position and orientation."
+          },
+          {
+            "id": 2,
+            "title": "Capture and Process Mouse Input",
+            "description": "Implement mouse input capture and process mouse motion events for camera rotation.",
+            "dependencies": [
+              1
+            ],
+            "details": "Set the mouse mode to captured at runtime and handle InputEventMouseMotion in the player script’s _unhandled_input function to detect mouse movement.",
+            "status": "pending",
+            "testStrategy": "Move the mouse and confirm that input events are being registered and processed for camera rotation."
+          },
+          {
+            "id": 3,
+            "title": "Implement Horizontal Player Rotation (Yaw)",
+            "description": "Rotate the player character horizontally (Y-axis) based on mouse movement.",
+            "dependencies": [
+              2
+            ],
+            "details": "In the input handler, apply horizontal mouse delta to rotate the player node around the Y-axis, enabling left-right looking.",
+            "status": "pending",
+            "testStrategy": "Move the mouse horizontally and verify that the entire player body rotates accordingly."
+          },
+          {
+            "id": 4,
+            "title": "Implement Vertical Camera Rotation (Pitch) with Clamping",
+            "description": "Rotate the Camera3D node vertically (X-axis) based on mouse movement, and clamp the rotation to prevent flipping.",
+            "dependencies": [
+              3
+            ],
+            "details": "Apply vertical mouse delta to the Camera3D node’s X-axis rotation and clamp the pitch angle to a safe range (e.g., -90° to +90°) to avoid unnatural camera flipping.",
+            "status": "pending",
+            "testStrategy": "Move the mouse vertically and confirm the camera tilts up and down, but cannot flip over."
+          },
+          {
+            "id": 5,
+            "title": "Toggle Mouse Capture Mode for Debugging",
+            "description": "Allow toggling between captured and visible mouse modes for easier testing and debugging.",
+            "dependencies": [
+              4
+            ],
+            "details": "Implement a key (e.g., Escape) to switch the mouse mode between captured and visible, enabling the developer to regain cursor control during testing.",
+            "status": "pending",
+            "testStrategy": "Press the designated key and verify that the mouse cursor appears or disappears as expected, without affecting camera control."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Item Data Structure (Custom Resource)",
+        "description": "Define a custom Resource type for items to standardize their properties, such as name, description, icon, stack size, and type.",
+        "details": "Create a new GDScript that extends `Resource`. Use `@export` variables for `item_name: String`, `description: String`, `texture: Texture2D`, `max_stack_size: int`. This allows creating unique item definitions as `.tres` files in the editor.",
+        "testStrategy": "Create several item resources (e.g., wood, stone) in the Godot editor. Verify that all exported properties can be set and saved correctly in the `.tres` files.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Item Property Schema",
+            "description": "Determine and document the standardized properties required for all item resources, such as name, description, icon, stack size, and type.",
+            "dependencies": [],
+            "details": "List all necessary fields for the item data structure, ensuring each property is clearly defined and justified for use in the game.",
+            "status": "pending",
+            "testStrategy": "Review the schema with stakeholders to confirm all required item attributes are included and unambiguous."
+          },
+          {
+            "id": 2,
+            "title": "Implement Custom Resource Script",
+            "description": "Create a new GDScript that extends Resource and defines the item properties using @export variables.",
+            "dependencies": [
+              1
+            ],
+            "details": "Write the GDScript file, ensuring each property from the schema is represented as an exported variable with appropriate types (e.g., String, Texture2D, int).",
+            "status": "pending",
+            "testStrategy": "Verify the script compiles without errors and all exported variables appear in the Godot editor when the resource is created."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Editor Functionality",
+            "description": "Enable creation and editing of item resources as .tres files within the Godot editor.",
+            "dependencies": [
+              2
+            ],
+            "details": "Register the custom resource with a class_name, test creating new resources via the editor, and ensure all properties are editable and persist when saved.",
+            "status": "pending",
+            "testStrategy": "Create several .tres files for different items and confirm that all fields can be set and saved correctly."
+          },
+          {
+            "id": 4,
+            "title": "Validate Resource Usage in Game",
+            "description": "Test loading and using the custom item resources in a game scene or script to ensure data integrity and accessibility.",
+            "dependencies": [
+              3
+            ],
+            "details": "Write a test script or scene that loads item resources at runtime and displays their properties (e.g., name, icon) in the UI.",
+            "status": "pending",
+            "testStrategy": "Run the game and confirm that item data is correctly loaded and displayed as intended."
+          },
+          {
+            "id": 5,
+            "title": "Document Item Resource Workflow",
+            "description": "Create clear documentation for developers on how to create, edit, and use item resources in the project.",
+            "dependencies": [
+              4
+            ],
+            "details": "Write step-by-step instructions covering resource creation, property editing, and integration into gameplay systems.",
+            "status": "pending",
+            "testStrategy": "Have a developer unfamiliar with the system follow the documentation to create a new item resource and report any issues."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Inventory System Backend",
+        "description": "Develop the backend logic for the player's inventory. This system will manage a collection of items, handling addition, removal, and stacking.",
+        "details": "Create an `Inventory` script (can be a node or a custom resource). It will contain an array of dictionaries or custom slot objects, where each slot holds an `ItemData` resource and a quantity. Implement functions like `add_item(item, quantity)`, `remove_item(item, quantity)`, and logic to handle stacking.",
+        "testStrategy": "Write unit tests (e.g., using GdUnit) to verify that adding items correctly fills empty slots or stacks with existing items, and that removing items works as expected. Test edge cases like full inventory and partial stacks.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Inventory Data Structure",
+            "description": "Define the data structure for the inventory, including the slot representation (dictionary or custom object), how each slot holds an ItemData resource and quantity, and the overall array or list organization.",
+            "dependencies": [],
+            "details": "Decide on the structure for inventory slots, ensuring each can store an item reference and its quantity. Plan for empty slots and maximum capacity.",
+            "status": "pending",
+            "testStrategy": "Verify that the data structure can represent empty, partially filled, and full slots, and that it supports the intended maximum inventory size."
+          },
+          {
+            "id": 2,
+            "title": "Implement Item Addition Logic",
+            "description": "Develop the add_item(item, quantity) function to handle adding items to the inventory, including stacking with existing items and filling empty slots.",
+            "dependencies": [
+              1
+            ],
+            "details": "Ensure the function checks for existing stacks of the same item, adds to them if possible, and fills empty slots if needed. Handle cases where the inventory is full or only partial addition is possible.",
+            "status": "pending",
+            "testStrategy": "Test adding items to empty inventory, stacking with existing items, and attempting to add items when inventory is full."
+          },
+          {
+            "id": 3,
+            "title": "Implement Item Removal Logic",
+            "description": "Develop the remove_item(item, quantity) function to handle removing items from the inventory, including decrementing stack counts and clearing slots when empty.",
+            "dependencies": [
+              1
+            ],
+            "details": "Ensure the function locates the correct item stacks, decrements quantities, and removes the item from the slot if the quantity reaches zero. Handle cases where not enough items are present.",
+            "status": "pending",
+            "testStrategy": "Test removing items from single and multiple stacks, removing more than available, and removing items until slots are empty."
+          },
+          {
+            "id": 4,
+            "title": "Implement Stacking and Capacity Logic",
+            "description": "Develop logic to manage item stacking rules and enforce inventory capacity limits, including maximum stack sizes per item and total slot limits.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Ensure that items cannot be stacked beyond their maximum stack size and that the inventory cannot exceed its slot capacity. Handle overflow scenarios gracefully.",
+            "status": "pending",
+            "testStrategy": "Test adding items that exceed stack limits, filling the inventory to capacity, and attempting to add items when no space is available."
+          },
+          {
+            "id": 5,
+            "title": "Write Unit Tests for Inventory Operations",
+            "description": "Create comprehensive unit tests to verify the correctness of all inventory operations, including edge cases for addition, removal, stacking, and capacity.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Use a testing framework (e.g., GdUnit) to automate tests for all inventory functions, covering normal and edge cases.",
+            "status": "pending",
+            "testStrategy": "Run automated tests to ensure all inventory operations behave as expected, including adding/removing items, stacking, and handling full inventory scenarios."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Player Interaction System (RayCast)",
+        "description": "Implement a system for the player to interact with objects in the world, such as resource nodes or items on the ground.",
+        "details": "Add a `RayCast3D` node to the center of the first-person camera. In `_physics_process`, cast the ray forward. If it collides with an object on a specific physics layer (e.g., 'interactable'), get the object and check if it has an `interact()` method to call.",
+        "testStrategy": "Place a test object with an `interact()` script in the scene. Point the camera at it and press the interact key. Verify that the object's `interact` method is called. Ensure the raycast has a limited range.",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add RayCast3D Node to Camera",
+            "description": "Attach a RayCast3D node to the center of the first-person camera to serve as the basis for interaction detection.",
+            "dependencies": [],
+            "details": "Ensure the RayCast3D node is correctly positioned and oriented to cast forward from the camera's viewpoint. Adjust its target position to define the maximum interaction range.",
+            "status": "pending",
+            "testStrategy": "Verify in the editor that the RayCast3D node follows the camera and points forward. Adjust the cast length and confirm visually."
+          },
+          {
+            "id": 2,
+            "title": "Configure RayCast3D for Interactable Layer",
+            "description": "Set up the RayCast3D node to detect collisions only with objects on the designated 'interactable' physics layer.",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify the RayCast3D node's collision mask to include only the 'interactable' layer, ensuring it ignores all other objects.",
+            "status": "pending",
+            "testStrategy": "Place objects on different physics layers in the scene. Confirm that only objects on the 'interactable' layer are detected by the raycast."
+          },
+          {
+            "id": 3,
+            "title": "Implement RayCast Logic in _physics_process",
+            "description": "Write logic in the player script's _physics_process function to cast the ray each frame and check for collisions.",
+            "dependencies": [
+              2
+            ],
+            "details": "In _physics_process, check if the RayCast3D node is colliding. If so, retrieve the collider object for further interaction checks.",
+            "status": "pending",
+            "testStrategy": "Run the game and observe debug output or visual indicators when the raycast collides with an interactable object."
+          },
+          {
+            "id": 4,
+            "title": "Detect and Call interact() Method on Hit Objects",
+            "description": "When the raycast hits an object, check if it has an interact() method and call it in response to player input.",
+            "dependencies": [
+              3
+            ],
+            "details": "On interact input (e.g., key press), verify the collider has an interact() method using has_method, then call interact() if available.",
+            "status": "pending",
+            "testStrategy": "Place a test object with an interact() method in the scene. Point at it and press the interact key. Confirm the method is called."
+          },
+          {
+            "id": 5,
+            "title": "Limit Interaction Range and Finalize Input Handling",
+            "description": "Ensure the raycast has a limited range and that interaction only occurs within this range and on valid input.",
+            "dependencies": [
+              4
+            ],
+            "details": "Set the RayCast3D's cast_to property to the desired maximum distance. Finalize input handling to prevent unintended interactions outside this range.",
+            "status": "pending",
+            "testStrategy": "Test with objects at various distances. Confirm that only objects within the set range can be interacted with and that input is required for interaction."
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Resource Node Scene",
+        "description": "Create a scene for gatherable resources like trees and rocks. These nodes will hold the type and amount of resource they provide.",
+        "details": "Create a `StaticBody3D` or `RigidBody3D` scene for a resource node. Add a script that exports an `ItemData` resource and a quantity variable. This node should be on the 'interactable' physics layer. It will also need a health variable to be depleted upon gathering.",
+        "testStrategy": "Place several resource node instances in the test world. Inspect them during runtime to ensure they have the correct item data and quantity assigned.",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Resource Node Scene Structure",
+            "description": "Define the base scene structure for a resource node using either StaticBody3D or RigidBody3D, including required child nodes for visuals and collision.",
+            "dependencies": [],
+            "details": "Set up the node hierarchy in the Godot editor, ensuring it supports both visual representation and physics interactions.",
+            "status": "pending",
+            "testStrategy": "Verify the node appears correctly in the editor and responds to basic physics interactions."
+          },
+          {
+            "id": 2,
+            "title": "Implement Resource Data and Quantity Export",
+            "description": "Attach a script to the resource node that exports an ItemData resource reference and a quantity variable.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use @export variables in GDScript to expose the ItemData and quantity fields for editor assignment.",
+            "status": "pending",
+            "testStrategy": "Assign different ItemData resources and quantities in the editor and confirm they are accessible at runtime."
+          },
+          {
+            "id": 3,
+            "title": "Add Health and Depletion Logic",
+            "description": "Extend the resource node script to include a health variable and logic for reducing health when gathered, leading to depletion.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a method to decrement health and handle node depletion, such as changing visuals or removing the node.",
+            "status": "pending",
+            "testStrategy": "Interact with the node in a test scene, reduce its health, and confirm it depletes and updates state as expected."
+          },
+          {
+            "id": 4,
+            "title": "Configure Physics Layer for Interactivity",
+            "description": "Set the resource node to the 'interactable' physics layer to enable player interaction via physics queries.",
+            "dependencies": [
+              1
+            ],
+            "details": "Adjust the node's collision layer and mask settings to ensure it is detected by player interaction systems.",
+            "status": "pending",
+            "testStrategy": "Use a RayCast or similar method to confirm the node is detected as 'interactable' during gameplay."
+          },
+          {
+            "id": 5,
+            "title": "Create and Test Multiple Resource Node Variants",
+            "description": "Instantiate several resource node variants (e.g., trees, rocks) with different ItemData and quantities for testing.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Place multiple resource nodes in a test world, each with unique data, and verify their properties and depletion behavior.",
+            "status": "pending",
+            "testStrategy": "Inspect each node during runtime to ensure correct item data, quantity, and depletion logic are functioning."
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Resource Gathering Mechanic",
+        "description": "Enable the player to gather resources from resource nodes. This involves the player interacting with a node, depleting its resources, and adding them to the inventory.",
+        "details": "When the player's interaction RayCast hits a resource node and the player attacks/interacts, call a `gather()` function on the node. This function will reduce the node's health, and upon depletion, it will emit a signal or directly call the player's inventory to add the specified resource. The node can then be removed (`queue_free()`).",
+        "testStrategy": "Interact with a tree node. Verify that the corresponding wood item is added to the player's inventory. After enough interactions, the tree should disappear from the world.",
+        "priority": "high",
+        "dependencies": [
+          5,
+          6,
+          7
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Detect Player Interaction with Resource Node",
+            "description": "Implement logic to detect when the player's interaction RayCast hits a resource node and the player initiates an attack or interaction.",
+            "dependencies": [],
+            "details": "Set up the player's interaction system to identify resource nodes using RayCast and respond to player input (e.g., attack or interact button).",
+            "status": "pending",
+            "testStrategy": "Test by aiming at a resource node and pressing the interact button; verify that the node is correctly detected."
+          },
+          {
+            "id": 2,
+            "title": "Implement Resource Node Health and Depletion",
+            "description": "Add a health variable to resource nodes and ensure it decreases when the gather function is called.",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify the resource node script to include a health property. Each gather action should reduce health, and when health reaches zero, trigger depletion logic.",
+            "status": "pending",
+            "testStrategy": "Interact with a node multiple times and confirm that its health decreases and eventually reaches zero."
+          },
+          {
+            "id": 3,
+            "title": "Emit Resource Gathered Signal or Call Inventory",
+            "description": "Upon node depletion, emit a signal or directly call the player's inventory to add the specified resource.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a signal or function call that passes the resource type and amount to the player's inventory system when the node is depleted.",
+            "status": "pending",
+            "testStrategy": "Deplete a node and verify that the correct resource is added to the player's inventory."
+          },
+          {
+            "id": 4,
+            "title": "Remove Depleted Resource Node from World",
+            "description": "Ensure that once a resource node is depleted, it is removed from the game world.",
+            "dependencies": [
+              3
+            ],
+            "details": "Call the `queue_free()` method or equivalent to remove the node after depletion and resource transfer.",
+            "status": "pending",
+            "testStrategy": "After depleting a node, confirm that it disappears from the world."
+          },
+          {
+            "id": 5,
+            "title": "Integrate and Test Complete Resource Gathering Loop",
+            "description": "Combine all components and test the full resource gathering mechanic from interaction to inventory update and node removal.",
+            "dependencies": [
+              4
+            ],
+            "details": "Perform end-to-end testing to ensure the player can interact with nodes, deplete them, receive resources, and see nodes removed.",
+            "status": "pending",
+            "testStrategy": "Interact with various resource nodes in the test world and verify the entire loop functions as intended."
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Inventory UI Grid Display",
+        "description": "Create the visual user interface for the inventory, displaying items in a grid. The UI should update automatically when the inventory backend changes.",
+        "details": "Use a `GridContainer` within a `Control` node for the UI. Create a separate scene for an `InventorySlot`, which displays an item's texture and stack count. The main inventory UI script will listen to signals from the inventory backend and dynamically create/update the slot instances.",
+        "testStrategy": "Add items to the inventory via a debug command. Verify that the UI grid updates in real-time to show the correct items, icons, and quantities. Test opening and closing the inventory panel.",
+        "priority": "high",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Inventory UI Layout",
+            "description": "Set up the main inventory UI using a Control node and add a GridContainer to organize item slots in a grid layout.",
+            "dependencies": [],
+            "details": "Create a new scene or UI panel with a Control node as the root. Add a GridContainer as a child to arrange inventory slots in a grid. Configure the grid's columns, rows, and cell size to match the desired inventory appearance.",
+            "status": "pending",
+            "testStrategy": "Open the UI scene and verify that the grid layout appears correctly, with placeholder slots arranged as intended."
+          },
+          {
+            "id": 2,
+            "title": "Create InventorySlot Scene",
+            "description": "Develop a reusable InventorySlot scene that displays an item's texture and stack count.",
+            "dependencies": [
+              1
+            ],
+            "details": "Design a separate scene for InventorySlot, including UI elements for the item icon (TextureRect) and stack count (Label). Ensure the slot can be instantiated dynamically and updated with item data.",
+            "status": "pending",
+            "testStrategy": "Instantiate InventorySlot scenes in the editor and confirm that textures and stack counts display correctly when set."
+          },
+          {
+            "id": 3,
+            "title": "Implement Dynamic Slot Generation",
+            "description": "Write logic in the main inventory UI script to dynamically create and arrange InventorySlot instances based on the current inventory data.",
+            "dependencies": [
+              2
+            ],
+            "details": "In the inventory UI script, listen for inventory data changes and generate or remove InventorySlot instances as needed. Populate each slot with the correct item texture and stack count.",
+            "status": "pending",
+            "testStrategy": "Add and remove items from the inventory backend and verify that the UI grid updates in real-time to reflect the changes."
+          },
+          {
+            "id": 4,
+            "title": "Connect UI to Inventory Backend",
+            "description": "Set up signal connections so the inventory UI listens for changes from the inventory backend and updates the grid accordingly.",
+            "dependencies": [
+              3
+            ],
+            "details": "Connect signals or callbacks from the inventory backend to the UI script. Ensure that any addition, removal, or update of items in the backend triggers a UI refresh.",
+            "status": "pending",
+            "testStrategy": "Modify the inventory backend (e.g., via debug commands) and confirm that the UI grid updates automatically without manual refresh."
+          },
+          {
+            "id": 5,
+            "title": "Test Inventory UI Functionality",
+            "description": "Perform comprehensive testing of the inventory UI, including opening/closing the panel and verifying real-time updates.",
+            "dependencies": [
+              4
+            ],
+            "details": "Test the inventory UI by adding, removing, and stacking items through the backend. Open and close the inventory panel to ensure it displays the correct state each time.",
+            "status": "pending",
+            "testStrategy": "Use debug commands to manipulate the inventory and observe the UI. Confirm that all items, icons, and quantities are accurate and that the panel behaves as expected."
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Inventory UI Item Management",
+        "description": "Implement drag-and-drop functionality within the inventory UI, allowing players to move items between slots and split stacks.",
+        "details": "In the `InventorySlot` script, use `_get_drag_data` and `_can_drop_data` functions. When dragging, set a preview texture. When dropping, get the data from the source slot and update the backend inventory data accordingly. This will trigger the UI update.",
+        "testStrategy": "Click and drag an item from one slot to another. Verify the items swap positions. Try dragging an item onto another of the same type to test stacking. Test dropping items outside the inventory to trigger the 'drop item' logic.",
+        "priority": "medium",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Inventory Slot Drag Data Structure",
+            "description": "Define the data structure and format for drag-and-drop operations between inventory slots, ensuring it includes item reference, quantity, and source slot information.",
+            "dependencies": [],
+            "details": "Establish a consistent data payload for drag events in the InventorySlot script, compatible with both moving and splitting stacks.",
+            "status": "pending",
+            "testStrategy": "Simulate drag events and verify that the correct data is passed between slots during drag-and-drop."
+          },
+          {
+            "id": 2,
+            "title": "Implement Drag Preview and Initiation",
+            "description": "Add logic to the InventorySlot script to initiate drag operations and display a preview texture representing the dragged item.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use the _get_drag_data function to start the drag, setting the preview texture to match the item's icon and quantity.",
+            "status": "pending",
+            "testStrategy": "Drag an item and confirm that the preview icon appears and follows the cursor."
+          },
+          {
+            "id": 3,
+            "title": "Validate Drop Targets and Handle Drop Logic",
+            "description": "Implement the _can_drop_data and drop handling logic in InventorySlot to determine valid drop targets and update inventory data accordingly.",
+            "dependencies": [
+              2
+            ],
+            "details": "Ensure that items can only be dropped on valid slots, handle swapping, stacking, and splitting logic, and update the backend inventory data.",
+            "status": "pending",
+            "testStrategy": "Attempt to drop items on various slots, including empty, occupied, and incompatible slots, and verify correct behavior."
+          },
+          {
+            "id": 4,
+            "title": "Synchronize UI with Backend Inventory Changes",
+            "description": "Ensure that any changes to the backend inventory data from drag-and-drop actions trigger the appropriate UI updates.",
+            "dependencies": [
+              3
+            ],
+            "details": "Connect signals or callbacks so that UI slot visuals update automatically when the underlying inventory data changes.",
+            "status": "pending",
+            "testStrategy": "Move, stack, and split items via drag-and-drop and confirm that the UI accurately reflects the backend state."
+          },
+          {
+            "id": 5,
+            "title": "Implement Stack Splitting via Drag-and-Drop",
+            "description": "Add functionality to allow players to split item stacks when dragging, such as by holding a modifier key or using a context menu.",
+            "dependencies": [
+              4
+            ],
+            "details": "Detect user intent to split stacks during drag initiation, prompt for quantity if needed, and update both source and destination slots accordingly.",
+            "status": "pending",
+            "testStrategy": "Test splitting stacks by dragging with the appropriate modifier, verifying that the correct quantities are moved and both slots update properly."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Game Manager Singleton",
+        "description": "Create a global autoload script (singleton) to manage the overall game state, including pause state, level transitions, and references to key managers.",
+        "details": "Create a new script `GameManager.gd`. Add it to Project Settings -> Autoload to make it a global singleton. This script will hold game-wide variables and signals, such as `game_paused` or `player_died`.",
+        "testStrategy": "Access the GameManager from any other script (e.g., the player script) to verify it's globally available. Test changing a state in the GameManager and having another script react to its signal.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create GameManager.gd Script",
+            "description": "Develop a new GDScript file named GameManager.gd that will serve as the central manager for global game state, including variables and signals for pause state, level transitions, and player events.",
+            "dependencies": [],
+            "details": "Write the initial GameManager.gd script, defining key variables such as game_paused and signals like player_died. Ensure the script is structured to allow easy expansion for future game state management needs.",
+            "status": "pending",
+            "testStrategy": "Verify the script loads without errors and contains the required variables and signals."
+          },
+          {
+            "id": 2,
+            "title": "Register GameManager as Autoload Singleton",
+            "description": "Add the GameManager.gd script to the Autoload list in Project Settings to make it globally accessible as a singleton throughout the game.",
+            "dependencies": [
+              1
+            ],
+            "details": "Navigate to Project Settings > Autoload, select GameManager.gd, and add it as a singleton. Confirm that it appears in the Autoload list and is accessible from any script.",
+            "status": "pending",
+            "testStrategy": "Access GameManager from a different script and confirm it is available globally."
+          },
+          {
+            "id": 3,
+            "title": "Implement Pause State Management",
+            "description": "Add logic and signals to GameManager.gd to handle pausing and unpausing the game, including a global game_paused variable and related methods.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement functions to set and toggle the pause state, emit signals when the pause state changes, and ensure other scripts can listen for these changes.",
+            "status": "pending",
+            "testStrategy": "Trigger pause and unpause from another script and verify that the state and signals update correctly."
+          },
+          {
+            "id": 4,
+            "title": "Add Level Transition and Manager References",
+            "description": "Extend GameManager.gd to manage level transitions and hold references to other key managers (e.g., LevelManager, AudioManager).",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement methods for initiating level transitions and store references to other global managers for centralized access.",
+            "status": "pending",
+            "testStrategy": "Initiate a level transition and verify that the correct signals are emitted and references are accessible."
+          },
+          {
+            "id": 5,
+            "title": "Test Global State and Signal Propagation",
+            "description": "Thoroughly test the GameManager singleton by accessing and modifying its state from various scripts, ensuring signals propagate and global variables update as expected.",
+            "dependencies": [
+              4
+            ],
+            "details": "Write test scripts or use existing gameplay scripts to interact with GameManager, checking that changes in state (pause, level transitions, player events) are correctly handled and observed across the project.",
+            "status": "pending",
+            "testStrategy": "Simulate game events (pause, player death, level change) and confirm all connected scripts respond appropriately."
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Player Data Resource for Saving",
+        "description": "Define a custom Resource to hold all persistent player data, including stats, inventory contents, and skill progression, for easy serialization.",
+        "details": "Create a `PlayerData.gd` script extending `Resource`. It will hold references to the player's `Inventory` resource, health, hunger, thirst, and other stats. This single resource can then be saved and loaded easily.",
+        "testStrategy": "Create an instance of `PlayerData`, populate it with sample data (e.g., add items to its inventory), and verify the data is stored correctly by inspecting the resource.",
+        "priority": "high",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design PlayerData Resource Structure",
+            "description": "Define the data structure for the PlayerData resource, specifying all persistent fields such as stats, inventory, and skill progression.",
+            "dependencies": [],
+            "details": "List all properties that need to be saved (e.g., health, hunger, thirst, inventory, skills) and determine their data types. Ensure the structure supports easy serialization and future extensibility.",
+            "status": "pending",
+            "testStrategy": "Review the property list with the team and confirm all required persistent data is included."
+          },
+          {
+            "id": 2,
+            "title": "Implement PlayerData.gd Resource Script",
+            "description": "Create the PlayerData.gd script extending Resource, implementing all defined properties and references.",
+            "dependencies": [
+              1
+            ],
+            "details": "Write the GDScript file, using export variables for each property. Reference sub-resources like Inventory as needed. Add setter/getter methods if encapsulation is required.",
+            "status": "pending",
+            "testStrategy": "Instantiate PlayerData in the editor and verify all properties are visible and editable."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Inventory and Sub-Resources",
+            "description": "Connect the PlayerData resource to the Inventory resource and any other sub-resources (e.g., skills, equipment).",
+            "dependencies": [
+              2
+            ],
+            "details": "Ensure PlayerData holds references to Inventory and other relevant resources. Confirm that these sub-resources are also serializable and compatible with Godot's resource system.",
+            "status": "pending",
+            "testStrategy": "Assign an Inventory resource to PlayerData and verify it can be saved and loaded with the parent resource."
+          },
+          {
+            "id": 4,
+            "title": "Implement Serialization and Deserialization Logic",
+            "description": "Set up save and load functions using Godot's ResourceSaver and ResourceLoader to serialize and deserialize the PlayerData resource.",
+            "dependencies": [
+              3
+            ],
+            "details": "Write functions to save PlayerData to disk (e.g., as .tres) and load it back, updating the player state accordingly. Handle errors and ensure data integrity.",
+            "status": "pending",
+            "testStrategy": "Save a populated PlayerData instance, reload it, and verify all data matches the original."
+          },
+          {
+            "id": 5,
+            "title": "Test and Validate Persistent Data Flow",
+            "description": "Thoroughly test the PlayerData resource in-game, ensuring all data is correctly saved, loaded, and updated during gameplay.",
+            "dependencies": [
+              4
+            ],
+            "details": "Simulate gameplay scenarios: modify stats, inventory, and skills, then save and reload. Check for data loss or corruption. Validate integration with other systems (e.g., stats, inventory UI).",
+            "status": "pending",
+            "testStrategy": "Perform end-to-end tests: change player data, save, restart the game, load, and confirm all data is restored accurately."
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Save/Load System Core",
+        "description": "Implement the core functions to save and load the game state using Godot's file system and JSON or custom resource saving.",
+        "details": "In the GameManager, create `save_game()` and `load_game()` functions. `save_game()` will populate a `PlayerData` resource with the current game state and use `ResourceSaver.save()` to write it to a file (e.g., `user://savegame.tres`). `load_game()` will use `ResourceLoader.load()` to read the file and apply the data back to the game.",
+        "testStrategy": "Play the game, gather some items, then call `save_game()`. Close and restart the game, call `load_game()`. Verify that the player's inventory and position are restored to the saved state.",
+        "priority": "high",
+        "dependencies": [
+          11,
+          12
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define PlayerData Resource Structure",
+            "description": "Design and implement the PlayerData resource to encapsulate all relevant game state information (e.g., player position, inventory, stats) that needs to be saved and loaded.",
+            "dependencies": [],
+            "details": "Determine which variables and properties must be persisted. Create a custom resource or dictionary structure to hold this data, ensuring it can be easily serialized and deserialized.",
+            "status": "pending",
+            "testStrategy": "Verify that all necessary game state variables are included in the PlayerData resource and can be set and retrieved correctly."
+          },
+          {
+            "id": 2,
+            "title": "Implement save_game() Function in GameManager",
+            "description": "Develop the save_game() function to collect current game state, populate the PlayerData resource, and write it to a file using ResourceSaver.save() or JSON serialization.",
+            "dependencies": [
+              1
+            ],
+            "details": "Gather all relevant data from the game, update the PlayerData resource, and use Godot's file system (e.g., ResourceSaver.save or FileAccess) to save the data to a designated file path such as user://savegame.tres.",
+            "status": "pending",
+            "testStrategy": "Play the game, trigger save_game(), and confirm that the save file is created and contains the expected data."
+          },
+          {
+            "id": 3,
+            "title": "Implement load_game() Function in GameManager",
+            "description": "Develop the load_game() function to read the saved file using ResourceLoader.load() or JSON parsing, and apply the loaded data back to the game state.",
+            "dependencies": [
+              2
+            ],
+            "details": "Check if the save file exists before loading. Load the PlayerData resource from file, then update the game state (player position, inventory, etc.) to match the loaded data.",
+            "status": "pending",
+            "testStrategy": "Modify the game state, save, restart the game, then load and verify that the state is restored to the saved values."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Save/Load Triggers and Error Handling",
+            "description": "Connect save and load functions to UI or input events, and implement error handling for missing or corrupted save files.",
+            "dependencies": [
+              3
+            ],
+            "details": "Add buttons or menu options to trigger save_game() and load_game(). Handle cases where the save file does not exist or is invalid, providing user feedback and preventing crashes.",
+            "status": "pending",
+            "testStrategy": "Attempt to load without a save file and with a corrupted file, ensuring the game handles errors gracefully and informs the user."
+          },
+          {
+            "id": 5,
+            "title": "Test and Validate Save/Load System",
+            "description": "Thoroughly test the save/load system under various scenarios to ensure reliability and data integrity.",
+            "dependencies": [
+              4
+            ],
+            "details": "Perform manual and automated tests: save and load after collecting items, changing locations, or modifying stats. Check for data loss, duplication, or corruption.",
+            "status": "pending",
+            "testStrategy": "Follow the test strategy: play the game, gather items, save, restart, load, and verify that all aspects of the game state are restored correctly."
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Crafting Recipe Data Structure",
+        "description": "Create a data structure for defining crafting recipes, specifying the required input items and quantities, and the resulting output item.",
+        "details": "Create a `CraftingRecipe.gd` script extending `Resource`. It will contain exported arrays: one for input ingredients (a dictionary of `ItemData` and quantity) and one for the output item(s). This allows creating recipes as `.tres` files.",
+        "testStrategy": "Create a recipe resource for a simple item, like a wooden plank from wood. Verify in the editor that you can assign the input and output `ItemData` resources and quantities.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define CraftingRecipe Resource Script",
+            "description": "Create a new GDScript file named CraftingRecipe.gd that extends Resource and registers as a custom resource type for recipes.",
+            "dependencies": [],
+            "details": "Set up the script to extend Resource and use the appropriate class_name for Godot to recognize it as a custom resource. Ensure it can be created and edited in the Godot editor.",
+            "status": "pending",
+            "testStrategy": "Verify that the CraftingRecipe resource appears as an option when creating a new resource in the Godot editor."
+          },
+          {
+            "id": 2,
+            "title": "Implement Input Ingredients Structure",
+            "description": "Add an exported array to the CraftingRecipe resource for input ingredients, where each element is a dictionary containing an ItemData reference and a quantity.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use @export var ingredients: Array to allow editing in the inspector. Each ingredient should be a dictionary with keys for the ItemData resource and the required quantity.",
+            "status": "pending",
+            "testStrategy": "Create a CraftingRecipe resource and confirm that multiple input ingredients can be assigned, each with an ItemData and quantity."
+          },
+          {
+            "id": 3,
+            "title": "Implement Output Items Structure",
+            "description": "Add an exported array to the CraftingRecipe resource for output items, where each element is a dictionary containing an ItemData reference and a quantity.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use @export var results: Array to allow editing in the inspector. Each result should be a dictionary with keys for the ItemData resource and the output quantity.",
+            "status": "pending",
+            "testStrategy": "Create a CraftingRecipe resource and confirm that one or more output items can be assigned, each with an ItemData and quantity."
+          },
+          {
+            "id": 4,
+            "title": "Add Recipe Metadata Fields",
+            "description": "Include additional exported fields for recipe metadata, such as a recipe name or description, to improve editor usability.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add @export var recipe_name: String and optionally other metadata fields to the CraftingRecipe resource.",
+            "status": "pending",
+            "testStrategy": "Check that the recipe name and any other metadata fields are visible and editable in the inspector for CraftingRecipe resources."
+          },
+          {
+            "id": 5,
+            "title": "Create and Validate Example Recipe Resource",
+            "description": "Create a sample CraftingRecipe .tres file in the editor, assign input and output items, and verify correct data assignment and usability.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Use the Godot editor to create a new CraftingRecipe resource, assign example ItemData resources and quantities for both inputs and outputs, and ensure all fields are functioning as intended.",
+            "status": "pending",
+            "testStrategy": "Open the sample recipe in the editor, confirm that all fields are correctly set, and that the resource can be saved and loaded without errors."
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Crafting System Backend",
+        "description": "Develop the system that processes crafting requests. It will check the player's inventory against a recipe's requirements and, if valid, consume the ingredients and add the output.",
+        "details": "Create a `CraftingManager` script. It will have a function `craft_item(recipe)`. This function will iterate through the recipe's ingredients, check if the player's inventory has sufficient quantities, and if so, call the inventory's `remove_item` and `add_item` methods.",
+        "testStrategy": "Give the player enough resources for a recipe and trigger crafting. Verify the ingredients are removed and the crafted item is added. Try crafting without enough resources and verify it fails.",
+        "priority": "high",
+        "dependencies": [
+          5,
+          14
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design CraftingManager Script Structure",
+            "description": "Define the overall structure of the CraftingManager script, including required properties and the main craft_item(recipe) function.",
+            "dependencies": [],
+            "details": "Outline the CraftingManager class, specifying its responsibilities, required references (such as to the player's inventory), and the signature for the craft_item(recipe) method.",
+            "status": "pending",
+            "testStrategy": "Review the script skeleton to ensure all necessary components are present before implementation."
+          },
+          {
+            "id": 2,
+            "title": "Implement Ingredient Validation Logic",
+            "description": "Develop the logic within craft_item(recipe) to iterate through the recipe's ingredients and check if the player's inventory contains sufficient quantities.",
+            "dependencies": [
+              1
+            ],
+            "details": "For each ingredient in the recipe, verify the player has the required amount in their inventory. If any ingredient is missing or insufficient, the function should return a failure state.",
+            "status": "pending",
+            "testStrategy": "Test with various inventory states to confirm that crafting only proceeds when all requirements are met."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Inventory Modification Methods",
+            "description": "Implement the consumption of ingredients and addition of the crafted item by calling the inventory's remove_item and add_item methods.",
+            "dependencies": [
+              2
+            ],
+            "details": "After successful validation, remove the required quantities of each ingredient from the inventory and add the crafted output item(s). Ensure atomicity to prevent partial updates.",
+            "status": "pending",
+            "testStrategy": "Trigger crafting and verify that ingredients are removed and the output item is added correctly."
+          },
+          {
+            "id": 4,
+            "title": "Handle Crafting Failure and Edge Cases",
+            "description": "Add error handling for cases such as insufficient resources, invalid recipes, or inventory modification failures.",
+            "dependencies": [
+              3
+            ],
+            "details": "Ensure the function returns appropriate error codes or messages for all failure scenarios, and that no inventory changes occur if crafting fails.",
+            "status": "pending",
+            "testStrategy": "Attempt crafting with missing ingredients, invalid recipes, or full inventory and confirm proper error handling."
+          },
+          {
+            "id": 5,
+            "title": "Write Unit Tests for CraftingManager",
+            "description": "Develop automated tests to cover all core functionalities and edge cases of the CraftingManager backend.",
+            "dependencies": [
+              4
+            ],
+            "details": "Create test cases for successful crafting, insufficient resources, invalid recipes, and inventory errors. Use mock inventory and recipe data to simulate scenarios.",
+            "status": "pending",
+            "testStrategy": "Run all tests and verify that the CraftingManager behaves as expected in every case."
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Basic Crafting UI",
+        "description": "Design and implement a user interface for crafting. It should display available recipes and allow the player to select and craft items.",
+        "details": "Create a `CraftingMenu` UI scene. It will load all `CraftingRecipe` resources from a specific directory. For each recipe, it will display the ingredients and output. A 'Craft' button will call the `CraftingManager.craft_item()` function with the selected recipe.",
+        "testStrategy": "Open the crafting menu. Verify it displays a list of recipes. Check that recipes the player cannot afford are greyed out or marked. Click the 'Craft' button and confirm the item is crafted.",
+        "priority": "high",
+        "dependencies": [
+          15
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design CraftingMenu UI Layout",
+            "description": "Create the visual layout for the CraftingMenu scene, ensuring it clearly displays available recipes, their ingredients, outputs, and includes a 'Craft' button.",
+            "dependencies": [],
+            "details": "Apply principles of simplicity, clarity, and consistency in the UI design. Ensure the interface is uncluttered and intuitive, following established game UI patterns for crafting menus.",
+            "status": "pending",
+            "testStrategy": "Open the CraftingMenu scene in the editor and verify that all UI elements are present, clearly labeled, and visually consistent."
+          },
+          {
+            "id": 2,
+            "title": "Implement Recipe Loading Mechanism",
+            "description": "Develop functionality to load all CraftingRecipe resources from a specified directory when the CraftingMenu is opened.",
+            "dependencies": [
+              1
+            ],
+            "details": "Ensure the system dynamically discovers and loads all available CraftingRecipe resources, preparing them for display in the UI.",
+            "status": "pending",
+            "testStrategy": "Add new CraftingRecipe resources to the directory and confirm they appear in the CraftingMenu without manual updates."
+          },
+          {
+            "id": 3,
+            "title": "Display Recipes with Ingredients and Outputs",
+            "description": "For each loaded recipe, display its required ingredients and resulting output in the UI, using appropriate icons and quantities.",
+            "dependencies": [
+              2
+            ],
+            "details": "Present recipe data in a clear, organized manner. Grey out or mark recipes the player cannot currently craft due to insufficient resources.",
+            "status": "pending",
+            "testStrategy": "Verify that all recipes show correct ingredient and output information, and that unaffordable recipes are visually distinguished."
+          },
+          {
+            "id": 4,
+            "title": "Implement Recipe Selection and Craft Button Logic",
+            "description": "Allow the player to select a recipe and enable the 'Craft' button only when the recipe is craftable. On button press, call CraftingManager.craft_item() with the selected recipe.",
+            "dependencies": [
+              3
+            ],
+            "details": "Ensure selection feedback is clear and the crafting action is only possible when requirements are met.",
+            "status": "pending",
+            "testStrategy": "Select various recipes and attempt to craft them, confirming that only valid actions are permitted and the correct function is called."
+          },
+          {
+            "id": 5,
+            "title": "Integrate and Test CraftingMenu with Game Systems",
+            "description": "Connect the CraftingMenu to the rest of the game, ensuring it interacts correctly with the CraftingManager and updates based on inventory changes.",
+            "dependencies": [
+              4
+            ],
+            "details": "Test the full crafting flow, including inventory updates and UI refreshes after crafting actions.",
+            "status": "pending",
+            "testStrategy": "Open the crafting menu during gameplay, craft items, and verify that inventory and UI update as expected after each action."
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "title": "Basic Enemy Scene Setup",
+        "description": "Create a basic enemy scene using a CharacterBody3D. It will serve as a template for all enemy types in the game.",
+        "details": "Create a new scene with a `CharacterBody3D` as the root. Add a `MeshInstance3D` for visuals and a `CollisionShape3D`. Attach a script `Enemy.gd` that will contain basic properties like health, speed, and damage.",
+        "testStrategy": "Place the enemy scene in the test world. Verify it appears correctly and that its physics body prevents the player from walking through it.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Enemy Scene with CharacterBody3D Root",
+            "description": "Set up a new scene in Godot with a CharacterBody3D node as the root to serve as the base for all enemy types.",
+            "dependencies": [],
+            "details": "Open the Godot editor, create a new scene, and add a CharacterBody3D node as the root. Name the root node appropriately (e.g., 'Enemy'). Save the scene in the project folder.",
+            "status": "pending",
+            "testStrategy": "Verify that the scene can be saved and reopened, and that the root node is CharacterBody3D."
+          },
+          {
+            "id": 2,
+            "title": "Add MeshInstance3D for Visual Representation",
+            "description": "Add a MeshInstance3D node as a child of the CharacterBody3D to provide the enemy's visual appearance.",
+            "dependencies": [
+              1
+            ],
+            "details": "Under the CharacterBody3D root, add a MeshInstance3D node. Assign a basic mesh (e.g., CubeMesh or imported model) to represent the enemy visually.",
+            "status": "pending",
+            "testStrategy": "Check that the mesh appears in the 3D viewport and is visible when the scene is run."
+          },
+          {
+            "id": 3,
+            "title": "Add CollisionShape3D for Physics",
+            "description": "Add a CollisionShape3D node as a child of the CharacterBody3D to define the enemy's collision boundaries.",
+            "dependencies": [
+              1
+            ],
+            "details": "Under the CharacterBody3D root, add a CollisionShape3D node. Assign an appropriate shape (e.g., CapsuleShape3D or BoxShape3D) that matches the enemy's mesh.",
+            "status": "pending",
+            "testStrategy": "Test in the editor to ensure the collision shape aligns with the mesh and prevents other physics bodies from passing through."
+          },
+          {
+            "id": 4,
+            "title": "Attach Enemy.gd Script with Basic Properties",
+            "description": "Create and attach an Enemy.gd script to the CharacterBody3D node, defining basic properties such as health, speed, and damage.",
+            "dependencies": [
+              1
+            ],
+            "details": "Write a GDScript file (Enemy.gd) with exported variables for health, speed, and damage. Attach this script to the CharacterBody3D root node.",
+            "status": "pending",
+            "testStrategy": "Inspect the node in the editor to confirm the script is attached and properties are visible and editable."
+          },
+          {
+            "id": 5,
+            "title": "Test Enemy Scene in Game Environment",
+            "description": "Place the enemy scene into a test world to verify correct appearance, collision, and property functionality.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Instance the enemy scene in a test level. Ensure the enemy is visible, its collision prevents the player from passing through, and its properties can be accessed or modified in-game.",
+            "status": "pending",
+            "testStrategy": "Run the game, observe the enemy in the world, and confirm that the player cannot walk through it and that the enemy's properties behave as expected."
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "title": "Enemy AI State Machine",
+        "description": "Implement a simple state machine for the enemy AI, controlling behaviors like Idle, Chasing, and Attacking.",
+        "details": "In the `Enemy.gd` script, use an `enum` to define states: `IDLE`, `CHASE`, `ATTACK`. In `_physics_process`, use a `match` statement to execute logic based on the current state. For example, in `IDLE`, scan for the player; in `CHASE`, move towards the player.",
+        "testStrategy": "Observe the enemy's behavior. Verify it stays in `IDLE` when the player is far away, transitions to `CHASE` when the player is detected, and enters `ATTACK` when close. Use `print()` statements to track state changes.",
+        "priority": "high",
+        "dependencies": [
+          17
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Enemy AI States Using Enum",
+            "description": "Create an enum in the Enemy.gd script to represent the possible AI states: IDLE, CHASE, and ATTACK.",
+            "dependencies": [],
+            "details": "Add an enum declaration at the top of the script to clearly define all possible states for the enemy AI. This will be used to manage state transitions and logic throughout the script.",
+            "status": "pending",
+            "testStrategy": "Verify that the enum is correctly defined and accessible throughout the script by printing the enum values in the console."
+          },
+          {
+            "id": 2,
+            "title": "Implement State Logic Methods",
+            "description": "Write separate methods for each state (idle, chase, attack) to encapsulate their behaviors and transitions.",
+            "dependencies": [
+              1
+            ],
+            "details": "For each state, implement a dedicated method (e.g., _idle_state(), _chase_state(), _attack_state()) that handles the logic and possible transitions for that state. Ensure each method can trigger a state change when appropriate, such as detecting the player or reaching attack range.[1]",
+            "status": "pending",
+            "testStrategy": "Use print statements within each method to confirm that the correct logic is executed when the state is active."
+          },
+          {
+            "id": 3,
+            "title": "Integrate State Machine in _physics_process",
+            "description": "Use a match statement in the _physics_process function to call the appropriate state logic method based on the current state.",
+            "dependencies": [
+              2
+            ],
+            "details": "Within the _physics_process(delta) function, implement a match statement that checks the current state variable and calls the corresponding state logic method. This ensures the enemy's behavior updates every frame according to its state.[1]",
+            "status": "pending",
+            "testStrategy": "Change the current state variable manually and observe if the correct method is called in each case."
+          },
+          {
+            "id": 4,
+            "title": "Implement State Transitions Based on Player Detection",
+            "description": "Add logic to transition between states based on player proximity and detection (e.g., from IDLE to CHASE when the player is detected, from CHASE to ATTACK when close enough).",
+            "dependencies": [
+              3
+            ],
+            "details": "In the state logic methods, implement checks for player presence and distance. Update the current state variable to transition between IDLE, CHASE, and ATTACK as appropriate. Ensure transitions are immediate and reliable.[1]",
+            "status": "pending",
+            "testStrategy": "Test by moving the player character in and out of detection and attack range, observing state transitions via print statements."
+          },
+          {
+            "id": 5,
+            "title": "Test and Debug Enemy AI State Machine",
+            "description": "Thoroughly test the enemy AI state machine to ensure correct behaviors and transitions in various scenarios.",
+            "dependencies": [
+              4
+            ],
+            "details": "Playtest the game and use print statements or the debugger to track state changes. Confirm that the enemy remains idle when the player is far, chases when detected, and attacks when close. Adjust logic as needed to fix any issues.",
+            "status": "pending",
+            "testStrategy": "Observe enemy behavior in-game, ensuring all states and transitions function as intended. Use print statements to verify state changes and correct execution of state logic."
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "title": "Enemy Pathfinding with NavigationAgent3D",
+        "description": "Use Godot's navigation system to enable enemies to find a path to the player, avoiding obstacles in the environment.",
+        "details": "Add a `NavigationAgent3D` to the enemy scene. In the main world, add a `NavigationRegion3D` and bake a `NavigationMesh`. In the enemy's `CHASE` state, set the `navigation_agent.target_position` to the player's global position. In `_physics_process`, use `navigation_agent.get_next_path_position()` to determine the direction of movement.",
+        "testStrategy": "Place obstacles between the enemy and the player. Verify the enemy navigates around them to reach the player, rather than getting stuck.",
+        "priority": "high",
+        "dependencies": [
+          18
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add NavigationRegion3D and Bake NavigationMesh",
+            "description": "Integrate a NavigationRegion3D node into the main world scene and bake a NavigationMesh to define walkable areas and obstacles.",
+            "dependencies": [],
+            "details": "Create a NavigationRegion3D node, move relevant scenery objects under it, and use the Inspector to generate and bake a NavigationMesh. Adjust agent radius and cell size settings as needed to ensure accurate navigation and obstacle avoidance.",
+            "status": "pending",
+            "testStrategy": "Visually inspect the NavigationMesh in the editor to confirm it covers all intended walkable surfaces and avoids obstacles."
+          },
+          {
+            "id": 2,
+            "title": "Configure NavigationAgent3D on Enemy Scene",
+            "description": "Add and configure a NavigationAgent3D node to the enemy character scene to enable pathfinding capabilities.",
+            "dependencies": [
+              1
+            ],
+            "details": "Attach a NavigationAgent3D node to the enemy. Set properties such as PathDesiredDistance and TargetDesiredDistance to match the enemy's size and navigation requirements.",
+            "status": "pending",
+            "testStrategy": "Verify that the NavigationAgent3D node is present and properly configured in the enemy scene."
+          },
+          {
+            "id": 3,
+            "title": "Set Target Position in Enemy CHASE State",
+            "description": "Update the enemy's NavigationAgent3D target position to the player's global position when in the CHASE state.",
+            "dependencies": [
+              2
+            ],
+            "details": "In the enemy's CHASE state logic, assign the player's global position to navigation_agent.target_position to initiate pathfinding toward the player.",
+            "status": "pending",
+            "testStrategy": "Trigger the CHASE state and confirm that the enemy's target position updates to follow the player."
+          },
+          {
+            "id": 4,
+            "title": "Implement Path Following in _physics_process",
+            "description": "Use navigation_agent.get_next_path_position() in the enemy's _physics_process to determine movement direction and update the enemy's position.",
+            "dependencies": [
+              3
+            ],
+            "details": "In the _physics_process function, check if navigation is finished. If not, retrieve the next path position and move the enemy toward it using the defined movement speed.",
+            "status": "pending",
+            "testStrategy": "Observe the enemy's movement to ensure it follows the calculated path toward the player."
+          },
+          {
+            "id": 5,
+            "title": "Test and Refine Obstacle Avoidance",
+            "description": "Place obstacles between the enemy and the player to verify that the enemy navigates around them using the NavigationMesh.",
+            "dependencies": [
+              4
+            ],
+            "details": "Add various obstacles to the environment and monitor enemy behavior. Adjust NavigationMesh or agent settings if the enemy gets stuck or fails to avoid obstacles.",
+            "status": "pending",
+            "testStrategy": "Confirm that the enemy consistently finds a path around obstacles and reaches the player without getting stuck."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "title": "Player Melee Combat System",
+        "description": "Implement a basic melee attack for the player, allowing them to damage enemies.",
+        "details": "On player input, trigger an attack animation and activate a short-lived `Area3D` in front of the player. Any enemy body entering this area during the attack will be registered. Connect the `body_entered` signal to a function that applies damage.",
+        "testStrategy": "Attack an enemy. Verify the enemy takes damage. Attack the air and verify no errors occur and nothing is damaged. Check that the attack hitbox size and timing feel right.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Player Attack Input and Animation",
+            "description": "Detect player input for melee attack and trigger the corresponding attack animation.",
+            "dependencies": [],
+            "details": "Set up input handling to listen for the attack key or button. When pressed, play the player's attack animation to visually represent the melee action.",
+            "status": "pending",
+            "testStrategy": "Press the attack button and verify that the attack animation plays correctly."
+          },
+          {
+            "id": 2,
+            "title": "Create and Configure Attack Hitbox (Area3D)",
+            "description": "Instantiate and position a short-lived Area3D in front of the player during the attack animation.",
+            "dependencies": [
+              1
+            ],
+            "details": "On attack, activate or spawn an Area3D node as a hitbox in front of the player. Ensure it matches the attack's reach and duration, and is only active during the attack window.",
+            "status": "pending",
+            "testStrategy": "Trigger an attack and confirm that the Area3D appears and disappears at the correct times and location."
+          },
+          {
+            "id": 3,
+            "title": "Detect Enemy Collision with Attack Hitbox",
+            "description": "Connect the Area3D's body_entered signal to detect when an enemy enters the attack area.",
+            "dependencies": [
+              2
+            ],
+            "details": "Set up the Area3D to emit the body_entered signal when an enemy enters its bounds. Ensure only valid enemy bodies are detected and registered for damage.",
+            "status": "pending",
+            "testStrategy": "Attack while an enemy is in range and verify that the collision is detected."
+          },
+          {
+            "id": 4,
+            "title": "Apply Damage to Enemies on Hit",
+            "description": "Implement logic to apply damage to any enemy detected by the attack hitbox during the attack.",
+            "dependencies": [
+              3
+            ],
+            "details": "When an enemy is detected by the Area3D during an attack, call a function to reduce the enemy's health by the appropriate amount.",
+            "status": "pending",
+            "testStrategy": "Attack an enemy and confirm that its health decreases as expected."
+          },
+          {
+            "id": 5,
+            "title": "Validate Attack System and Tune Hitbox",
+            "description": "Test the melee attack system for correct behavior, including hit detection, timing, and absence of errors when attacking empty space.",
+            "dependencies": [
+              4
+            ],
+            "details": "Playtest the attack system to ensure enemies take damage only when hit, no errors occur when attacking air, and the hitbox size and timing feel appropriate. Adjust parameters as needed.",
+            "status": "pending",
+            "testStrategy": "Attack enemies and empty space, verifying correct damage application and system stability. Adjust hitbox and timing for optimal feel."
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "title": "Health and Damage System",
+        "description": "Create a universal health and damage system. Player and enemies will have health components, and attacks will apply damage.",
+        "details": "Create a `HealthComponent` node that can be added to any character. It will manage `current_health` and `max_health`, and have a `take_damage(amount)` function. This function will reduce health and emit a `died` signal when health reaches zero. Both player and enemy attacks will call this function on their target.",
+        "testStrategy": "Deal damage to an enemy and verify its health decreases. When health is zero, verify the `died` signal is emitted and the enemy is removed. Similarly, test player taking damage.",
+        "priority": "high",
+        "dependencies": [
+          17,
+          20
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design HealthComponent Node Structure",
+            "description": "Define the structure and properties of the HealthComponent node, including variables for current and maximum health.",
+            "dependencies": [],
+            "details": "Specify the node's required properties such as current_health and max_health, and ensure it can be attached to both player and enemy characters.",
+            "status": "pending",
+            "testStrategy": "Verify that the HealthComponent node can be added to different character scenes and that its properties are accessible and modifiable."
+          },
+          {
+            "id": 2,
+            "title": "Implement Health Management Functions",
+            "description": "Develop functions to manage health, including initialization, health reduction, and health restoration.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement methods such as take_damage(amount) to decrease health and optionally add methods for healing or resetting health.",
+            "status": "pending",
+            "testStrategy": "Call take_damage and healing functions with various values and confirm that current_health updates correctly."
+          },
+          {
+            "id": 3,
+            "title": "Emit Died Signal on Zero Health",
+            "description": "Add logic to emit a died signal when current_health reaches zero or below.",
+            "dependencies": [
+              2
+            ],
+            "details": "Ensure the take_damage function checks for zero or negative health and emits a died signal to notify other systems.",
+            "status": "pending",
+            "testStrategy": "Apply damage exceeding current_health and verify that the died signal is emitted exactly once."
+          },
+          {
+            "id": 4,
+            "title": "Integrate HealthComponent with Player and Enemy Attacks",
+            "description": "Modify attack logic for both player and enemies to call the take_damage function on their targets.",
+            "dependencies": [
+              3
+            ],
+            "details": "Ensure all attack events reference the HealthComponent of the target and apply the correct damage amount.",
+            "status": "pending",
+            "testStrategy": "Trigger attacks from both player and enemies and confirm that the target's health decreases as expected."
+          },
+          {
+            "id": 5,
+            "title": "Test and Validate Health and Damage System",
+            "description": "Conduct comprehensive testing to ensure the health and damage system works reliably for all characters.",
+            "dependencies": [
+              4
+            ],
+            "details": "Test scenarios including multiple consecutive attacks, overkill damage, and simultaneous attacks to ensure robustness.",
+            "status": "pending",
+            "testStrategy": "Simulate various combat situations and verify health updates, died signal emission, and correct removal or handling of dead entities."
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "title": "Procedural Terrain Generation",
+        "description": "Implement procedural terrain generation using FastNoiseLite to create varied and unique landscapes for each level.",
+        "details": "Use `FastNoiseLite` to generate a height map. Create a `MeshInstance3D` and a `PlaneMesh`. In a script, iterate through the mesh vertices using `MeshTool` or `SurfaceTool` and adjust their Y-position based on the noise value at their X/Z coordinates. This will create rolling hills and valleys.",
+        "testStrategy": "Run the generation script. Verify that a non-flat terrain mesh is created. Change the noise seed and run again to confirm a different landscape is generated.",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Integrate FastNoiseLite and Configure Noise Parameters",
+            "description": "Set up FastNoiseLite in the project and configure its parameters (seed, frequency, octaves, etc.) to control the characteristics of the generated height map.",
+            "dependencies": [],
+            "details": "Import FastNoiseLite, expose noise parameters in the editor or script, and ensure the noise generator can be seeded for unique terrain per level.",
+            "status": "pending",
+            "testStrategy": "Change noise parameters and seed, then verify that the generated noise map visually changes and produces different terrain patterns."
+          },
+          {
+            "id": 2,
+            "title": "Create Base Terrain Mesh Structure",
+            "description": "Generate a MeshInstance3D with a PlaneMesh to serve as the base for the terrain.",
+            "dependencies": [
+              1
+            ],
+            "details": "Instantiate a MeshInstance3D node and assign a PlaneMesh with sufficient subdivisions to allow for detailed terrain deformation.",
+            "status": "pending",
+            "testStrategy": "Visually confirm that the mesh appears in the scene and has the expected resolution for vertex manipulation."
+          },
+          {
+            "id": 3,
+            "title": "Apply Height Map to Mesh Vertices",
+            "description": "Iterate through the mesh vertices using MeshTool or SurfaceTool and adjust their Y-position based on the FastNoiseLite height map values at each X/Z coordinate.",
+            "dependencies": [
+              2
+            ],
+            "details": "Write a script that samples the noise at each vertex position and updates the Y-coordinate to create hills and valleys.",
+            "status": "pending",
+            "testStrategy": "Run the script and verify that the mesh deforms into a non-flat, varied landscape matching the noise pattern."
+          },
+          {
+            "id": 4,
+            "title": "Implement Terrain Regeneration with Variable Seeds",
+            "description": "Enable the terrain to regenerate with different seeds, ensuring each level produces a unique landscape.",
+            "dependencies": [
+              3
+            ],
+            "details": "Expose a seed parameter and update the generation logic to use the current seed, allowing for new terrain to be generated on demand.",
+            "status": "pending",
+            "testStrategy": "Change the seed value and regenerate the terrain, confirming that each seed produces a distinct landscape."
+          },
+          {
+            "id": 5,
+            "title": "Optimize and Validate Terrain Generation Performance",
+            "description": "Profile and optimize the terrain generation process to ensure it runs efficiently, especially for larger meshes or during runtime regeneration.",
+            "dependencies": [
+              4
+            ],
+            "details": "Analyze the script's performance, optimize loops and memory usage, and ensure the process is suitable for real-time or on-demand generation.",
+            "status": "pending",
+            "testStrategy": "Test terrain generation with various mesh sizes and monitor frame rate and generation time to confirm acceptable performance."
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "title": "Chunk-Based World Loading",
+        "description": "Optimize world generation by implementing a chunk-based loading system. The world will be divided into chunks that load and unload based on player proximity.",
+        "details": "Create a `WorldManager` that tracks the player's position. Divide the world into a grid of chunks. The manager will load chunks within a certain radius of the player and unload those outside the radius. Each chunk is a separate scene containing its terrain mesh and objects.",
+        "testStrategy": "Enable visible collision shapes or debug text. Move the player around the world and verify that new chunks are loaded ahead of the player and old chunks behind the player are unloaded (`queue_free()`).",
+        "priority": "medium",
+        "dependencies": [
+          22
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Chunk Grid Structure",
+            "description": "Define how the world will be divided into a grid of chunks, specifying chunk size, coordinate system, and how chunks align with each other.",
+            "dependencies": [],
+            "details": "Establish the chunk dimensions and grid layout. Ensure that chunks can be referenced and positioned consistently so they line up seamlessly when loaded together.",
+            "status": "pending",
+            "testStrategy": "Visually inspect chunk placement in the editor to confirm correct alignment and seamless tiling."
+          },
+          {
+            "id": 2,
+            "title": "Implement WorldManager for Player Tracking",
+            "description": "Develop the WorldManager component to continuously track the player's position and determine which chunks should be loaded or unloaded.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create logic to monitor the player's movement and calculate which chunks fall within the loading radius based on the player's current position.",
+            "status": "pending",
+            "testStrategy": "Move the player around a test world and verify that the WorldManager correctly identifies the set of chunks to load and unload."
+          },
+          {
+            "id": 3,
+            "title": "Chunk Loading and Unloading Logic",
+            "description": "Implement the system that loads chunks within the defined radius and unloads those outside it, ensuring efficient memory and resource management.",
+            "dependencies": [
+              2
+            ],
+            "details": "Write code to instantiate chunk scenes when they enter the loading radius and remove or deactivate them when they exit. Use efficient methods to avoid performance stutters during chunk transitions.",
+            "status": "pending",
+            "testStrategy": "Enable debug output or visual indicators to confirm that chunks are loaded and unloaded as the player moves, with no noticeable lag."
+          },
+          {
+            "id": 4,
+            "title": "Chunk Scene Structure and Content Management",
+            "description": "Define the structure of each chunk scene, including terrain mesh and contained objects, and ensure they are self-contained for independent loading.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a template or prefab for chunk scenes that includes terrain and objects. Ensure all necessary data is encapsulated within the chunk for easy instantiation and removal.",
+            "status": "pending",
+            "testStrategy": "Load individual chunk scenes in isolation to verify they contain all required elements and function independently."
+          },
+          {
+            "id": 5,
+            "title": "Testing and Debugging Chunk Loading System",
+            "description": "Develop and execute a comprehensive test plan to verify correct chunk loading/unloading, seamless transitions, and performance under various scenarios.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Use debug tools such as visible collision shapes or debug text to monitor chunk activity. Test edge cases like rapid player movement and boundary conditions.",
+            "status": "pending",
+            "testStrategy": "Move the player throughout the world, observing chunk loading/unloading in real time. Confirm that no chunks are missing or overlapping and that performance remains stable."
+          }
+        ]
+      },
+      {
+        "id": 24,
+        "title": "Procedural Resource Spawning",
+        "description": "Procedurally spawn resources like trees and ore veins across the generated terrain based on noise maps.",
+        "details": "Use additional `FastNoiseLite` instances with different seeds for different resources (e.g., one for trees, one for stone). When generating a terrain chunk, sample these noise maps. If the noise value at a location is above a certain threshold, spawn the corresponding resource node scene at that position.",
+        "testStrategy": "Explore the generated world. Verify that resources are spawned in clusters or patches corresponding to the noise patterns. Check that they are placed correctly on the terrain surface.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          22
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set Up Resource-Specific FastNoiseLite Instances",
+            "description": "Create and configure separate FastNoiseLite instances for each resource type (e.g., trees, ore veins), ensuring each uses a unique seed for independent distribution patterns.",
+            "dependencies": [],
+            "details": "Instantiate FastNoiseLite objects for each resource and assign different seeds to guarantee varied and non-overlapping noise maps for each resource type.",
+            "status": "pending",
+            "testStrategy": "Verify that each FastNoiseLite instance produces distinct noise patterns by visualizing or logging sample outputs for each resource."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Resource Noise Sampling into Chunk Generation",
+            "description": "Modify the terrain chunk generation process to sample the appropriate resource noise maps at each relevant position within the chunk.",
+            "dependencies": [
+              1
+            ],
+            "details": "During chunk generation, iterate over terrain positions and sample the corresponding FastNoiseLite instance for each resource to determine potential spawn locations.",
+            "status": "pending",
+            "testStrategy": "Log or visualize sampled noise values for each resource across a chunk to confirm correct integration."
+          },
+          {
+            "id": 3,
+            "title": "Implement Threshold-Based Resource Placement Logic",
+            "description": "Define and apply threshold values for each resource type to decide whether a resource node should be spawned at a given location based on the sampled noise value.",
+            "dependencies": [
+              2
+            ],
+            "details": "For each resource, compare the sampled noise value to its threshold; if above, mark the location for resource spawning.",
+            "status": "pending",
+            "testStrategy": "Adjust thresholds and observe changes in resource density and clustering to ensure thresholds are respected."
+          },
+          {
+            "id": 4,
+            "title": "Spawn Resource Node Scenes at Valid Locations",
+            "description": "Instantiate and place the appropriate resource node scene (e.g., tree, ore vein) at each location where the noise threshold condition is met, ensuring correct alignment with the terrain surface.",
+            "dependencies": [
+              3
+            ],
+            "details": "For each valid spawn location, create the resource node scene and position it accurately on the terrain, taking into account terrain height and orientation.",
+            "status": "pending",
+            "testStrategy": "Visually inspect generated chunks to confirm that resource nodes appear at correct positions and are properly aligned with the terrain."
+          },
+          {
+            "id": 5,
+            "title": "Validate Resource Distribution and Clustering",
+            "description": "Test and refine the procedural spawning system to ensure resources appear in natural-looking clusters or patches that reflect the underlying noise patterns.",
+            "dependencies": [
+              4
+            ],
+            "details": "Explore generated terrain, observing resource placement for natural clustering and patchiness. Adjust noise parameters or thresholds as needed for desired distribution.",
+            "status": "pending",
+            "testStrategy": "Traverse multiple generated chunks, confirming that resources are distributed in visually plausible clusters and that no major placement errors occur."
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "title": "Save/Load World Data",
+        "description": "Extend the save/load system to store the state of the world, including modified terrain and player-built structures.",
+        "details": "Create a `WorldData` resource or dictionary. When saving, iterate through all loaded chunks. For any chunk that has been modified (e.g., resources removed, structures added), serialize its state (e.g., a list of removed nodes and a list of added structures with their transforms) and add it to the `WorldData` object. When loading, apply these modifications after generating the base chunk.",
+        "testStrategy": "Build a small structure, save the game, and restart. Load the game and verify the structure is still there. Gather a resource, save, load, and verify the resource node is gone.",
+        "priority": "medium",
+        "dependencies": [
+          13,
+          23
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define WorldData Structure",
+            "description": "Design and implement a centralized data structure (e.g., a resource or dictionary) to hold all relevant world state information, including modified terrain and player-built structures.",
+            "dependencies": [],
+            "details": "Create a single object to encapsulate all world state data, ensuring it can be easily accessed and modified by other systems. Consider using a singleton or resource pattern for global accessibility and ease of serialization.",
+            "status": "pending",
+            "testStrategy": "Verify that the WorldData structure can store and retrieve sample data for terrain and structures."
+          },
+          {
+            "id": 2,
+            "title": "Detect and Track Modified Chunks",
+            "description": "Implement logic to identify and track which world chunks have been modified during gameplay, such as resource removal or structure placement.",
+            "dependencies": [
+              1
+            ],
+            "details": "Monitor changes to each chunk and flag them as modified. Maintain a list or set of modified chunks to optimize save operations and avoid unnecessary serialization.",
+            "status": "pending",
+            "testStrategy": "Modify terrain and build structures in several chunks, then check that only the affected chunks are marked as modified."
+          },
+          {
+            "id": 3,
+            "title": "Serialize Modified Chunk Data",
+            "description": "Develop serialization routines to convert the state of each modified chunk—including removed nodes and added structures with their transforms—into a storable format.",
+            "dependencies": [
+              2
+            ],
+            "details": "Choose an appropriate serialization format (e.g., JSON for readability or binary for efficiency) and ensure all relevant data is captured for each modified chunk.",
+            "status": "pending",
+            "testStrategy": "Save the game after modifying chunks and inspect the saved data to confirm all changes are accurately serialized."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Save/Load Logic with WorldData",
+            "description": "Extend the save/load system to utilize the WorldData structure, ensuring that all tracked modifications are saved and can be restored on load.",
+            "dependencies": [
+              3
+            ],
+            "details": "On save, iterate through modified chunks and serialize their data into WorldData. On load, deserialize WorldData and apply modifications to the generated base world.",
+            "status": "pending",
+            "testStrategy": "Build a structure and remove a resource, save the game, reload, and verify that both the structure and resource state persist correctly."
+          },
+          {
+            "id": 5,
+            "title": "Apply Modifications After World Generation",
+            "description": "Implement logic to apply saved modifications from WorldData to the world after the base chunks are generated during loading.",
+            "dependencies": [
+              4
+            ],
+            "details": "Ensure that the loading process first generates the base chunk, then applies all serialized modifications (e.g., removes nodes, adds structures) in the correct order.",
+            "status": "pending",
+            "testStrategy": "Load a saved game and confirm that all modifications (removed resources, added structures) are present and correctly positioned in the world."
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "title": "Day-Night Cycle Logic",
+        "description": "Implement a day-night cycle that affects the game's lighting and potentially gameplay mechanics.",
+        "details": "In the `GameManager`, create a timer or use `_process(delta)` to increment a `time_of_day` variable. This variable will range from 0 to 24. The length of a full day can be configured.",
+        "testStrategy": "Display the current `time_of_day` on screen as a debug label. Verify that it increments at the correct speed and loops back to 0 after reaching 24.",
+        "priority": "medium",
+        "dependencies": [
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Configurable Day-Night Cycle Variables",
+            "description": "Create and export variables in the GameManager for day length, start time, and time progression speed to allow easy configuration of the day-night cycle.",
+            "dependencies": [],
+            "details": "Add @export variables such as day_length (float), start_time (float), and time_rate (float) to the GameManager script, making them editable in the Inspector for designers to tweak the cycle's duration and starting point.[1][2]",
+            "status": "pending",
+            "testStrategy": "Verify that the exported variables appear in the Inspector and can be modified at runtime, affecting the cycle as expected."
+          },
+          {
+            "id": 2,
+            "title": "Implement Time Progression Logic",
+            "description": "Write logic in the GameManager to increment the time_of_day variable based on delta time and the configured speed, looping back to 0 after reaching 24.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the _process(delta) function, increment time_of_day by time_rate * delta, ensuring it wraps around to 0 after reaching 24 to simulate a continuous day-night loop.[1][2]",
+            "status": "pending",
+            "testStrategy": "Run the game and observe that time_of_day increases smoothly, resets to 0 after 24, and matches the configured speed."
+          },
+          {
+            "id": 3,
+            "title": "Initialize Time at Game Start",
+            "description": "Set the initial value of time_of_day to the configured start_time when the game begins.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the _ready() function of GameManager, assign time_of_day to start_time so the cycle begins at the desired time of day.[1][2]",
+            "status": "pending",
+            "testStrategy": "Start the game at different configured start_time values and confirm that time_of_day reflects the correct initial time."
+          },
+          {
+            "id": 4,
+            "title": "Expose and Debug Time-of-Day Variable",
+            "description": "Display the current time_of_day on screen as a debug label for development and testing purposes.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Add a UI label or debug print that updates every frame to show the current value of time_of_day, aiding in verification and tuning.",
+            "status": "pending",
+            "testStrategy": "Observe the debug label during gameplay to ensure time_of_day updates correctly and matches expected values."
+          },
+          {
+            "id": 5,
+            "title": "Provide Hooks for Gameplay and Lighting Effects",
+            "description": "Implement signals or method calls in GameManager to notify other systems (e.g., lighting, gameplay mechanics) when time_of_day changes.",
+            "dependencies": [
+              2
+            ],
+            "details": "Add a signal or callback mechanism that emits or calls functions when time_of_day updates, allowing other scripts to react to day-night transitions.",
+            "status": "pending",
+            "testStrategy": "Connect a test script to the signal or callback and verify it receives updates as time_of_day changes."
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "title": "Dynamic Lighting System",
+        "description": "Create a dynamic lighting system where the sun's position, color, and intensity change based on the day-night cycle.",
+        "details": "Use a `DirectionalLight3D` for the sun and a `WorldEnvironment` node for ambient light and sky. In a script, update the `DirectionalLight3D`'s rotation and color based on the `time_of_day` variable from the `GameManager`. Use a `Gradient` to define the sky color and ambient light color throughout the day.",
+        "testStrategy": "Let the game run and observe the lighting. Verify the sun moves across the sky, shadows shift, and the ambient light/sky color changes from bright blue at noon to orange at sunset and dark at night.",
+        "priority": "medium",
+        "dependencies": [
+          26
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set Up DirectionalLight3D for Sun",
+            "description": "Add a DirectionalLight3D node to the scene to represent the sun and configure its initial properties for real-time lighting and shadows.",
+            "dependencies": [],
+            "details": "Ensure the DirectionalLight3D is set to Realtime mode so its properties can be updated dynamically. Configure shadow settings for optimal quality and performance.",
+            "status": "pending",
+            "testStrategy": "Verify the light illuminates the scene and casts shadows on both static and dynamic objects."
+          },
+          {
+            "id": 2,
+            "title": "Implement Sun Movement Based on Time of Day",
+            "description": "Write a script to update the DirectionalLight3D's rotation according to the time_of_day variable from the GameManager, simulating the sun's movement across the sky.",
+            "dependencies": [
+              1
+            ],
+            "details": "Calculate the sun's rotation angle based on the current time of day and apply it to the DirectionalLight3D each frame.",
+            "status": "pending",
+            "testStrategy": "Observe the sun's position changing smoothly throughout the day-night cycle."
+          },
+          {
+            "id": 3,
+            "title": "Dynamically Adjust Sun Color and Intensity",
+            "description": "Modify the script to interpolate the sun's color and intensity throughout the day using a Gradient or similar data structure.",
+            "dependencies": [
+              2
+            ],
+            "details": "Define color and intensity values for key times (dawn, noon, dusk, night) and interpolate between them based on time_of_day.",
+            "status": "pending",
+            "testStrategy": "Check that the sun appears bright and white at noon, orange at sunset, and dim or absent at night."
+          },
+          {
+            "id": 4,
+            "title": "Configure WorldEnvironment for Ambient Light and Sky",
+            "description": "Add and configure a WorldEnvironment node to manage ambient light and sky settings, ensuring they can be updated in real time.",
+            "dependencies": [
+              1
+            ],
+            "details": "Set up the WorldEnvironment to use a procedural or gradient sky and enable ambient light settings that can be modified via script.",
+            "status": "pending",
+            "testStrategy": "Confirm that changes to ambient light and sky color are reflected in the scene."
+          },
+          {
+            "id": 5,
+            "title": "Synchronize Ambient Light and Sky Color with Day-Night Cycle",
+            "description": "Extend the script to update the WorldEnvironment's ambient light and sky color using a Gradient, matching the sun's state throughout the day.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Use the same or a related Gradient to smoothly transition ambient and sky colors from bright blue at noon to orange at sunset and dark at night.",
+            "status": "pending",
+            "testStrategy": "Let the game run and verify that ambient and sky colors transition smoothly and match the sun's position and color."
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "title": "Base Building Placement System",
+        "description": "Implement the core logic for base building, allowing players to place pre-defined building block objects in the world.",
+        "details": "Create a 'build mode' for the player. In this mode, a ghost/preview of the selected building piece appears in front of the player. The player can rotate it. When the player clicks, an instance of the building piece scene is created at the ghost's position. Use the interaction RayCast to determine placement location.",
+        "testStrategy": "Enter build mode, select a foundation block, and place it on the ground. Verify the block appears and has collision. Try placing a wall block.",
+        "priority": "medium",
+        "dependencies": [
+          6,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Build Mode Activation",
+            "description": "Create the logic to enter and exit build mode, triggered by a specific player action or UI button.",
+            "dependencies": [],
+            "details": "Set up input handling to toggle build mode. When activated, the system should prepare for building placement and display the appropriate UI or visual cues.",
+            "status": "pending",
+            "testStrategy": "Press the designated key or button to enter and exit build mode. Verify that the mode toggles correctly and the UI/visuals update accordingly."
+          },
+          {
+            "id": 2,
+            "title": "Display and Control Building Piece Preview",
+            "description": "Show a ghost/preview of the selected building piece in front of the player, allowing for rotation and movement based on player input.",
+            "dependencies": [
+              1
+            ],
+            "details": "Instantiate a transparent or highlighted preview object at the intended placement location. Implement controls to rotate the preview and update its position in real time as the player moves their aim.",
+            "status": "pending",
+            "testStrategy": "Enter build mode, select a building piece, and verify that a preview appears and follows the player's aim. Test rotation controls to ensure the preview rotates as expected."
+          },
+          {
+            "id": 3,
+            "title": "Determine Valid Placement Location Using RayCast",
+            "description": "Use an interaction RayCast from the player to calculate the intended placement position for the building piece.",
+            "dependencies": [
+              2
+            ],
+            "details": "Cast a ray from the player's camera or cursor to detect the surface where the building piece should be placed. Update the preview's position to match the hit location, and visually indicate if placement is valid or invalid.",
+            "status": "pending",
+            "testStrategy": "Move the preview over various surfaces and obstacles. Confirm that the preview snaps to valid surfaces and changes color or appearance when placement is invalid."
+          },
+          {
+            "id": 4,
+            "title": "Instantiate Building Piece at Placement Location",
+            "description": "When the player confirms placement, create an instance of the selected building piece at the preview's position and orientation.",
+            "dependencies": [
+              3
+            ],
+            "details": "On player input (e.g., mouse click), instantiate the building piece prefab at the preview's location with the current rotation. Ensure the new object is properly parented and initialized.",
+            "status": "pending",
+            "testStrategy": "Place a building piece and verify it appears at the correct location and orientation. Check that it interacts with the environment as expected (e.g., has collision)."
+          },
+          {
+            "id": 5,
+            "title": "Handle Build Mode Exit and Cleanup",
+            "description": "Implement logic to exit build mode and clean up any temporary objects or UI elements.",
+            "dependencies": [
+              4
+            ],
+            "details": "Remove the preview object and reset any build mode-specific UI or state when the player exits build mode or cancels placement.",
+            "status": "pending",
+            "testStrategy": "Exit build mode or cancel placement and verify that all previews and UI elements are removed, and normal gameplay resumes."
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "title": "Building System Grid Snapping",
+        "description": "Add a grid-based snapping system to the building logic to make it easier for players to align building pieces perfectly.",
+        "details": "When in build mode, calculate the target placement position. Round this position to the nearest grid unit (e.g., `snapped_position = target_position.snapped(Vector3(1, 1, 1))`). Place the ghost and the final building piece at this snapped position. For walls, detect nearby foundations or other walls to snap to.",
+        "testStrategy": "Try placing two foundation blocks next to each other. Verify they align perfectly without gaps or overlap. Place a wall on top of a foundation and check for correct alignment.",
+        "priority": "medium",
+        "dependencies": [
+          28
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Grid Parameters and Snapping Logic",
+            "description": "Establish the grid size, orientation, and snapping increments for building placement. Implement the core logic to round target positions to the nearest grid unit.",
+            "dependencies": [],
+            "details": "Determine the grid's unit size (e.g., 1x1x1) and implement a function that takes a target position and returns the snapped position using rounding or flooring methods.",
+            "status": "pending",
+            "testStrategy": "Input various target positions and verify that the output positions are correctly aligned to the grid."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Snapping into Build Mode Placement",
+            "description": "Modify the build mode logic so that both the ghost preview and final building piece use the snapped position for placement.",
+            "dependencies": [
+              1
+            ],
+            "details": "Update the placement system to call the snapping function before rendering the ghost and before instantiating the building piece.",
+            "status": "pending",
+            "testStrategy": "Place multiple foundation blocks and verify they align perfectly without gaps or overlaps."
+          },
+          {
+            "id": 3,
+            "title": "Implement Axis and Increment Customization",
+            "description": "Allow configuration of which axes (X, Y, Z) snapping applies to and support custom increment values for each axis.",
+            "dependencies": [
+              1
+            ],
+            "details": "Provide options to enable or disable snapping per axis and set different grid sizes for each axis as needed.",
+            "status": "pending",
+            "testStrategy": "Test snapping with various axis configurations and increment values to ensure correct alignment."
+          },
+          {
+            "id": 4,
+            "title": "Add Contextual Snapping for Walls and Attachments",
+            "description": "Detect nearby foundations or walls and adjust snapping logic to align walls and attachments to existing structures.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement detection of adjacent building pieces and modify the snapping logic to prioritize alignment with these structures.",
+            "status": "pending",
+            "testStrategy": "Place walls next to foundations and other walls, verifying that they snap and align correctly."
+          },
+          {
+            "id": 5,
+            "title": "Visualize Grid and Snapping Feedback",
+            "description": "Display a visible grid and provide visual feedback when snapping occurs to assist player alignment.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Render a grid overlay in build mode and highlight snapped positions or axes when the player moves the ghost piece.",
+            "status": "pending",
+            "testStrategy": "Enable build mode and observe the grid and snapping feedback as pieces are moved and placed."
+          }
+        ]
+      },
+      {
+        "id": 30,
+        "title": "Player Stats System (Hunger and Thirst)",
+        "description": "Introduce player survival stats like hunger and thirst that decrease over time and have negative effects when low.",
+        "details": "In the `PlayerData` resource and player script, add `hunger` and `thirst` variables. Use a `Timer` to periodically decrease these values. If hunger or thirst reach zero, start applying damage to the player's health.",
+        "testStrategy": "Wait in-game for a few minutes. Verify that hunger and thirst stats decrease. Let one of them reach zero and confirm that the player starts taking damage.",
+        "priority": "medium",
+        "dependencies": [
+          12,
+          21
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add Hunger and Thirst Variables to Player Data",
+            "description": "Introduce new variables for hunger and thirst in the PlayerData resource and ensure they are accessible in the player script.",
+            "dependencies": [],
+            "details": "Define max and current values for both hunger and thirst. Ensure these variables are initialized properly and can be referenced by other systems.",
+            "status": "pending",
+            "testStrategy": "Check that the player starts with the correct initial hunger and thirst values and that these values are visible in the debugger or UI."
+          },
+          {
+            "id": 2,
+            "title": "Implement Periodic Decrease of Hunger and Thirst",
+            "description": "Set up a timer system that periodically reduces the hunger and thirst values over time.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use a Timer node or equivalent logic to decrement hunger and thirst at regular intervals. Ensure the decrease rate is configurable.",
+            "status": "pending",
+            "testStrategy": "Wait in-game and verify that hunger and thirst values decrease at the expected rate."
+          },
+          {
+            "id": 3,
+            "title": "Clamp Hunger and Thirst Values",
+            "description": "Ensure hunger and thirst values do not drop below zero or exceed their maximum values.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement logic to clamp hunger and thirst between 0 and their respective maximums to prevent negative or overflow values.",
+            "status": "pending",
+            "testStrategy": "Allow hunger and thirst to decrease to zero and attempt to increase them above the maximum; verify values stay within bounds."
+          },
+          {
+            "id": 4,
+            "title": "Apply Negative Effects When Hunger or Thirst Reach Zero",
+            "description": "Trigger negative effects, such as health damage, when hunger or thirst reach zero.",
+            "dependencies": [
+              3
+            ],
+            "details": "Monitor hunger and thirst values; if either reaches zero, start applying periodic damage to the player's health until the stat is restored.",
+            "status": "pending",
+            "testStrategy": "Let hunger or thirst reach zero and confirm that the player begins to take damage as specified."
+          },
+          {
+            "id": 5,
+            "title": "Integrate Hunger and Thirst with UI and Item Pickups",
+            "description": "Update the UI to display hunger and thirst, and allow item pickups to restore these stats.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add UI elements (e.g., sliders) for hunger and thirst. Implement logic so that consuming items increases the appropriate stat, and update the UI accordingly.",
+            "status": "pending",
+            "testStrategy": "Pick up or consume an item that restores hunger or thirst and verify that the UI updates and the stat increases as expected."
+          }
+        ]
+      },
+      {
+        "id": 31,
+        "title": "UI for Player Vitals",
+        "description": "Create UI elements (e.g., bars or icons) to display the player's current health, hunger, and thirst levels on the main game screen.",
+        "details": "In the main HUD scene, add `TextureProgressBar` nodes for health, hunger, and thirst. In a script, get references to these bars and update their `value` property whenever the corresponding player stat changes by connecting to signals.",
+        "testStrategy": "Take damage and verify the health bar decreases. Wait for hunger/thirst to drop and verify their bars update accordingly. Eat food (once implemented) and check that the bars go up.",
+        "priority": "medium",
+        "dependencies": [
+          21,
+          30
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design UI Layout for Vitals",
+            "description": "Plan and design the placement and appearance of health, hunger, and thirst bars or icons on the main HUD to ensure clarity and accessibility.",
+            "dependencies": [],
+            "details": "Sketch or prototype the arrangement of the three vitals indicators, considering screen space, player visibility, and thematic consistency with the game's art style.",
+            "status": "pending",
+            "testStrategy": "Review the mockup with team members and gather feedback on visibility and intuitiveness."
+          },
+          {
+            "id": 2,
+            "title": "Add TextureProgressBar Nodes to HUD Scene",
+            "description": "Implement TextureProgressBar nodes for health, hunger, and thirst in the main HUD scene.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the HUD scene, create and configure three TextureProgressBar nodes, assigning appropriate textures and setting their min/max values to match the corresponding player stats.",
+            "status": "pending",
+            "testStrategy": "Visually confirm that all three bars appear in the correct locations in the HUD during play mode."
+          },
+          {
+            "id": 3,
+            "title": "Reference and Initialize Vitals Bars in Script",
+            "description": "Write a script to obtain references to the TextureProgressBar nodes and initialize their values based on the player's current stats.",
+            "dependencies": [
+              2
+            ],
+            "details": "In the HUD or player script, use node paths or exported variables to reference each bar. On scene load, set each bar's value to match the player's current health, hunger, and thirst.",
+            "status": "pending",
+            "testStrategy": "Start the game with various player stat values and verify that the bars display the correct initial values."
+          },
+          {
+            "id": 4,
+            "title": "Connect Stat Change Signals to UI Update Logic",
+            "description": "Connect signals from the player stats system to update the corresponding UI bars whenever health, hunger, or thirst changes.",
+            "dependencies": [
+              3
+            ],
+            "details": "Subscribe to signals or events emitted when player stats change. In the connected functions, update the value property of the relevant TextureProgressBar node.",
+            "status": "pending",
+            "testStrategy": "Trigger stat changes (e.g., take damage, wait for hunger/thirst to decrease) and confirm that the bars update in real time."
+          },
+          {
+            "id": 5,
+            "title": "Test and Polish Vitals UI",
+            "description": "Playtest the vitals UI under various gameplay scenarios and refine visuals, animations, and responsiveness as needed.",
+            "dependencies": [
+              4
+            ],
+            "details": "Test the UI by simulating stat increases and decreases, ensuring smooth bar transitions and clear feedback. Adjust colors, animations, or effects for improved clarity and polish.",
+            "status": "pending",
+            "testStrategy": "Perform in-game actions that affect vitals and verify that the UI responds accurately and remains readable in all situations."
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "title": "Equipment System and UI Slots",
+        "description": "Implement a system for equipping items like tools, weapons, and armor, with dedicated slots in the UI.",
+        "details": "Extend the inventory UI to include specific equipment slots (e.g., 'Main Hand', 'Helmet', 'Chestplate'). Create a corresponding `Equipment` data structure on the player. When an item is moved to an equipment slot, it is 'equipped', and its stats/model are applied to the player.",
+        "testStrategy": "Drag a sword item to the 'Main Hand' slot. Verify it appears in the slot. If a player model is used, check that the sword appears in the player's hand. Unequip it and verify it returns to the inventory.",
+        "priority": "medium",
+        "dependencies": [
+          5,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Equipment Data Structures",
+            "description": "Define the data structures for equipment items and equipment slots, including types (e.g., Main Hand, Helmet, Chestplate) and relevant attributes such as stat modifiers.",
+            "dependencies": [],
+            "details": "Create or extend the Item and Equipment classes to support different equipment types and their modifiers. Ensure each equipment slot is clearly defined and can reference the appropriate item type.",
+            "status": "pending",
+            "testStrategy": "Review the data structures to confirm all required slot types and item attributes are present and correctly typed."
+          },
+          {
+            "id": 2,
+            "title": "Extend Inventory UI with Equipment Slots",
+            "description": "Update the inventory user interface to display dedicated equipment slots for each equipment type, allowing items to be dragged and dropped into these slots.",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify the UI layout to include visual representations of each equipment slot. Implement drag-and-drop functionality for moving items between inventory and equipment slots.",
+            "status": "pending",
+            "testStrategy": "Drag an item from the inventory to an equipment slot and verify it appears in the correct slot visually."
+          },
+          {
+            "id": 3,
+            "title": "Implement Equipment Assignment Logic",
+            "description": "Develop the logic to handle equipping and unequipping items, updating the player's Equipment data structure and ensuring only valid items can be equipped in each slot.",
+            "dependencies": [
+              2
+            ],
+            "details": "When an item is placed in an equipment slot, update the player's Equipment data structure and remove it from the inventory. Ensure only compatible items can be equipped in each slot.",
+            "status": "pending",
+            "testStrategy": "Attempt to equip various items in different slots and verify that only valid items are accepted and the Equipment data structure updates accordingly."
+          },
+          {
+            "id": 4,
+            "title": "Apply Equipment Stats and Models to Player",
+            "description": "Ensure that equipping an item updates the player's stats and, if applicable, changes the player's visual model to reflect the equipped gear.",
+            "dependencies": [
+              3
+            ],
+            "details": "When an item is equipped, apply its stat modifiers to the player's attributes and update the player model to display the equipped item (e.g., show a helmet or weapon).",
+            "status": "pending",
+            "testStrategy": "Equip an item and verify that the player's stats and appearance update as expected. Unequip the item and confirm stats and visuals revert."
+          },
+          {
+            "id": 5,
+            "title": "Synchronize Equipment and Inventory States",
+            "description": "Ensure that moving items between inventory and equipment slots keeps both systems in sync, preventing duplication or loss of items.",
+            "dependencies": [
+              4
+            ],
+            "details": "Implement checks and updates so that when an item is equipped, it is removed from the inventory, and when unequipped, it returns to the inventory. Prevent equipping if the item is not present in the inventory.",
+            "status": "pending",
+            "testStrategy": "Equip and unequip items repeatedly, verifying that items are never duplicated or lost and that both inventory and equipment slots reflect the correct state."
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "title": "Equipment Power Measurement",
+        "description": "Implement a 'power rating' for equipment. The player's total power will be calculated from their equipped gear.",
+        "details": "Add a `power_rating` property to the `ItemData` resource for equippable items. In the player script, create a function `calculate_total_power()` that sums the `power_rating` of all items in the equipment slots. This value will be used for combat calculations and level gating.",
+        "testStrategy": "Equip a piece of armor with a power rating of 10 and a weapon with a rating of 15. Verify the player's total power is calculated as 25. Unequip one item and check that the total is recalculated correctly.",
+        "priority": "medium",
+        "dependencies": [
+          32
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add 'power_rating' Property to ItemData Resource",
+            "description": "Extend the ItemData resource definition to include a new integer property called 'power_rating' for all equippable items.",
+            "dependencies": [],
+            "details": "Modify the ItemData resource script to add an @export variable 'power_rating: int'. Ensure this property is visible and editable in the Godot editor for all relevant item resources.",
+            "status": "pending",
+            "testStrategy": "Open several equippable item resources in the editor and verify that the 'power_rating' property can be set and saved."
+          },
+          {
+            "id": 2,
+            "title": "Update Existing Item Resources with Power Ratings",
+            "description": "Assign appropriate 'power_rating' values to all existing equippable item resources in the project.",
+            "dependencies": [
+              1
+            ],
+            "details": "Review all current equippable items and set their 'power_rating' property based on intended game balance and progression.",
+            "status": "pending",
+            "testStrategy": "Check that each equippable item resource has a non-null 'power_rating' value and that the values are consistent with design expectations."
+          },
+          {
+            "id": 3,
+            "title": "Implement Equipment Power Calculation Function",
+            "description": "Create a function 'calculate_total_power()' in the player script that sums the 'power_rating' of all equipped items.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the player script, iterate over all equipment slots, retrieve the 'power_rating' from each equipped item, and return the total sum.",
+            "status": "pending",
+            "testStrategy": "Equip items with known power ratings and verify that the function returns the correct total."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Power Calculation with Combat and Level Gating",
+            "description": "Ensure the player's total power is used in combat calculations and for restricting access to content based on power thresholds.",
+            "dependencies": [
+              3
+            ],
+            "details": "Update combat and progression systems to reference the player's total power when determining outcomes or access to certain areas or encounters.",
+            "status": "pending",
+            "testStrategy": "Attempt combat and level access with varying total power values to confirm correct gating and calculations."
+          },
+          {
+            "id": 5,
+            "title": "Test and Validate Equipment Power System",
+            "description": "Thoroughly test the equipment power system by equipping and unequipping items, verifying recalculation, and ensuring integration with gameplay systems.",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Perform manual and automated tests to confirm that equipping and unequipping items updates the player's total power correctly and that this value is used as intended throughout the game.",
+            "status": "pending",
+            "testStrategy": "Equip armor with power 10 and a weapon with power 15, verify total is 25. Unequip one item and check recalculation. Confirm combat and level gating respond to changes."
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "title": "Level and Boss Progression Manager",
+        "description": "Create a manager to handle level progression. This system will track which bosses have been defeated and unlock subsequent levels.",
+        "details": "In the `GameManager`, add a variable to track the current level and a list of defeated bosses. After a boss is defeated, a signal will be sent to the `GameManager`, which will then unlock the next level (e.g., by enabling a portal or changing the world generation parameters).",
+        "testStrategy": "Use a debug command to simulate defeating a boss. Verify that the `GameManager` registers the kill and that the logic to unlock the next level is triggered.",
+        "priority": "medium",
+        "dependencies": [
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Level and Boss Data Structures",
+            "description": "Design and implement data structures to represent levels, bosses, and their relationships, including which bosses unlock which levels.",
+            "dependencies": [],
+            "details": "Create classes or resources to store information about each level and boss, including unique IDs, unlock requirements, and any associated rewards.",
+            "status": "pending",
+            "testStrategy": "Verify that levels and bosses can be instantiated and queried for their unlock conditions and relationships."
+          },
+          {
+            "id": 2,
+            "title": "Implement Progression Tracking in GameManager",
+            "description": "Add variables and logic to the GameManager to track the current level and maintain a list of defeated bosses.",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify the GameManager script to include a variable for the current level and a collection (e.g., array or set) to store defeated boss IDs.",
+            "status": "pending",
+            "testStrategy": "Simulate defeating bosses and ensure the GameManager updates the defeated bosses list and current level correctly."
+          },
+          {
+            "id": 3,
+            "title": "Set Up Boss Defeat Signal System",
+            "description": "Create a signaling mechanism so that when a boss is defeated, the GameManager is notified and can respond accordingly.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement signals or event dispatching from boss entities to the GameManager, triggering progression logic upon boss defeat.",
+            "status": "pending",
+            "testStrategy": "Defeat a boss in-game or via debug command and confirm the GameManager receives the signal and processes it."
+          },
+          {
+            "id": 4,
+            "title": "Unlock Next Level Logic",
+            "description": "Develop the logic in GameManager to unlock the next level when progression conditions are met, such as enabling portals or updating world generation.",
+            "dependencies": [
+              3
+            ],
+            "details": "Upon receiving a boss defeat signal, check if progression criteria are met and update the game state to unlock the next level or area.",
+            "status": "pending",
+            "testStrategy": "After defeating the required boss, verify that the next level becomes accessible (e.g., portal appears or world parameters change)."
+          },
+          {
+            "id": 5,
+            "title": "Testing and Debug Tools for Progression",
+            "description": "Implement debug commands and automated tests to simulate boss defeats and level progression for rapid iteration and validation.",
+            "dependencies": [
+              4
+            ],
+            "details": "Add debug commands to trigger boss defeat and progression events, and write test cases to ensure all progression scenarios are handled.",
+            "status": "pending",
+            "testStrategy": "Use debug tools to simulate various progression paths and confirm the system behaves as expected in all cases."
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "title": "Player Respawn System",
+        "description": "Implement the player respawn mechanic. When the player's health reaches zero, they will respawn at their most recently placed base structure.",
+        "details": "When placing a base part (like a bed or foundation), store its position as a potential spawn point. When the player's `HealthComponent` emits the `died` signal, the `GameManager` will find the nearest valid spawn point, reset the player's health, and move the player character to that position.",
+        "testStrategy": "Build a small base. Move away from it and die. Verify that the player respawns at the base location, not where they died.",
+        "priority": "medium",
+        "dependencies": [
+          21
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Track and Store Base Structure Spawn Points",
+            "description": "Implement logic to store the position of each newly placed base structure (e.g., bed, foundation) as a potential player spawn point.",
+            "dependencies": [],
+            "details": "When the player places a base part, record its position in a list or array of valid spawn points associated with the player.",
+            "status": "pending",
+            "testStrategy": "Place multiple base structures in different locations and verify that each is registered as a potential spawn point."
+          },
+          {
+            "id": 2,
+            "title": "Monitor Player Death Event",
+            "description": "Connect the player's HealthComponent to emit a signal when health reaches zero, triggering the respawn process.",
+            "dependencies": [
+              1
+            ],
+            "details": "Ensure the HealthComponent emits a 'died' signal and that the GameManager or relevant system listens for this event to initiate respawn.",
+            "status": "pending",
+            "testStrategy": "Reduce the player's health to zero and confirm that the 'died' signal is emitted and received by the GameManager."
+          },
+          {
+            "id": 3,
+            "title": "Select the Most Recent Valid Spawn Point",
+            "description": "Implement logic in the GameManager to determine the most recently placed valid base structure as the player's respawn location.",
+            "dependencies": [
+              2
+            ],
+            "details": "When the respawn process is triggered, search the stored spawn points and select the most recent or otherwise valid one for respawning.",
+            "status": "pending",
+            "testStrategy": "Place several bases, die, and verify that the player respawns at the last base placed."
+          },
+          {
+            "id": 4,
+            "title": "Reset Player State and Move to Spawn Point",
+            "description": "Reset the player's health and any necessary state, then move the player character to the selected spawn point.",
+            "dependencies": [
+              3
+            ],
+            "details": "Upon respawn, restore the player's health to full and set the player's position to the chosen spawn point.",
+            "status": "pending",
+            "testStrategy": "After dying, confirm that the player's health is reset and the character appears at the correct base location."
+          },
+          {
+            "id": 5,
+            "title": "Implement Respawn Transition and Invulnerability",
+            "description": "Add a brief transition (e.g., fade to black) and temporary invulnerability period after respawn to improve player experience.",
+            "dependencies": [
+              4
+            ],
+            "details": "Display a short fade-out/fade-in effect during respawn and grant the player a few seconds of invulnerability upon reappearing.",
+            "status": "pending",
+            "testStrategy": "Die and observe the transition effect; verify that the player cannot take damage for a short period after respawning."
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "title": "Skill Tree System Backend",
+        "description": "Create a data structure and logic for skill trees, allowing players to spend points to unlock passive and active abilities.",
+        "details": "Create a `Skill.gd` resource defining a skill's name, description, cost, and effect. Create a `SkillTree.gd` resource that holds a dictionary or array of these skills. The player data will store which skills are unlocked. Implement a `SkillManager` to apply the effects of unlocked skills.",
+        "testStrategy": "Define a simple skill (e.g., +5% health). Use a debug command to unlock it. Verify that the player's maximum health is increased accordingly.",
+        "priority": "low",
+        "dependencies": [
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Skill Data Structure",
+            "description": "Define the Skill resource (`Skill.gd`) with properties such as name, description, cost, and effect, ensuring it supports both passive and active abilities.",
+            "dependencies": [],
+            "details": "Create a script or resource that encapsulates all necessary data for a skill, including optional fields for prerequisites and upgrade tiers.",
+            "status": "pending",
+            "testStrategy": "Instantiate a skill with sample data and verify all properties are correctly assigned and accessible."
+          },
+          {
+            "id": 2,
+            "title": "Implement Skill Tree Structure",
+            "description": "Develop the SkillTree resource (`SkillTree.gd`) to organize skills in a hierarchical or connected structure, supporting prerequisites and branching paths.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use a dictionary, array, or recursive structure to represent the tree, allowing for complex relationships and dependencies between skills.",
+            "status": "pending",
+            "testStrategy": "Add multiple skills with dependencies to the tree and verify the structure correctly enforces prerequisite relationships."
+          },
+          {
+            "id": 3,
+            "title": "Track Player Skill Progression",
+            "description": "Extend player data to store unlocked skills and available skill points, enabling persistent tracking of progression.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement logic to update the player's unlocked skills and skill points when skills are purchased or reset.",
+            "status": "pending",
+            "testStrategy": "Simulate unlocking and resetting skills, ensuring the player's data accurately reflects the changes."
+          },
+          {
+            "id": 4,
+            "title": "Develop Skill Unlocking Logic",
+            "description": "Create logic to spend skill points and unlock skills, enforcing prerequisites and cost requirements.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement functions to check prerequisites, deduct skill points, and update unlocked skills when a player attempts to unlock a new skill.",
+            "status": "pending",
+            "testStrategy": "Attempt to unlock skills with and without meeting prerequisites or sufficient points, verifying correct behavior in all cases."
+          },
+          {
+            "id": 5,
+            "title": "Implement Skill Effect Application",
+            "description": "Build the SkillManager to apply the effects of unlocked skills to the player, handling both passive and active abilities.",
+            "dependencies": [
+              4
+            ],
+            "details": "Ensure that unlocking a skill immediately applies its effect, and that effects are removed or updated if skills are reset or changed.",
+            "status": "pending",
+            "testStrategy": "Unlock a skill with a test effect (e.g., +5% health) and verify the player's stats or abilities are updated accordingly."
+          }
+        ]
+      },
+      {
+        "id": 37,
+        "title": "Skill Tree UI",
+        "description": "Develop the UI for the skill trees, visually representing the progression paths and allowing players to spend skill points.",
+        "details": "Create a `SkillTreeMenu` scene. It will visually lay out the skills from the `SkillTree` resource, often using lines to connect dependent skills. Buttons will allow the player to 'learn' a skill, which will call the `SkillManager` and update the player's data.",
+        "testStrategy": "Open the skill tree menu. Verify the skills are displayed correctly. Click to learn a skill and confirm that it becomes visually 'unlocked' and that subsequent skills in the path become available.",
+        "priority": "low",
+        "dependencies": [
+          36
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Skill Tree Layout and Visual Style",
+            "description": "Create a wireframe and visual design for the skill tree, ensuring clear representation of skill progression paths, dependencies, and states (locked, unlockable, unlocked, focused).",
+            "dependencies": [],
+            "details": "Develop a layout that visually organizes skills and their connections, using consistent icons, color coding, and clear lines to indicate dependencies. Ensure the design is intuitive and avoids visual clutter.",
+            "status": "pending",
+            "testStrategy": "Review the wireframe and mockups with the team to confirm clarity, readability, and alignment with the game's visual style."
+          },
+          {
+            "id": 2,
+            "title": "Implement SkillTreeMenu Scene Structure",
+            "description": "Set up the SkillTreeMenu scene in the game engine, laying out UI nodes for skills, connectors, and navigation elements based on the approved design.",
+            "dependencies": [
+              1
+            ],
+            "details": "Translate the visual design into a functional scene structure, placing skill buttons, lines for dependencies, and navigation controls. Ensure the scene can dynamically display skills from the SkillTree resource.",
+            "status": "pending",
+            "testStrategy": "Open the scene in the editor and verify that all UI elements are present and correctly positioned according to the design."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Skill Data and Dynamic Rendering",
+            "description": "Connect the SkillTreeMenu to the SkillTree resource to dynamically render skills, their states, and dependencies based on player data.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement logic to read skill data, display correct icons and states, and draw dependency lines. Ensure the UI updates in real time as the player's skill data changes.",
+            "status": "pending",
+            "testStrategy": "Load different player profiles and verify that the skill tree accurately reflects unlocked, unlockable, and locked skills, as well as progression paths."
+          },
+          {
+            "id": 4,
+            "title": "Implement Skill Interaction and Learning Logic",
+            "description": "Add interactive buttons for each skill, allowing players to attempt to learn skills. Integrate with the SkillManager to process skill learning and update player data.",
+            "dependencies": [
+              3
+            ],
+            "details": "Ensure that clicking a skill button checks prerequisites, spends skill points, and updates both the UI and underlying data. Provide feedback for successful and failed attempts.",
+            "status": "pending",
+            "testStrategy": "Test learning skills in-game, confirming that skills unlock only when requirements are met, skill points are deducted, and the UI updates accordingly."
+          },
+          {
+            "id": 5,
+            "title": "Polish UI Feedback and Accessibility",
+            "description": "Enhance the UI with tooltips, animations, and accessibility features to improve usability and player understanding.",
+            "dependencies": [
+              4
+            ],
+            "details": "Add tooltips for skill descriptions, visual feedback for state changes, and ensure font choices and color contrast meet accessibility standards. Refine transitions and highlight focused skills.",
+            "status": "pending",
+            "testStrategy": "Playtest the skill tree menu, checking that tooltips appear correctly, animations are smooth, and the interface is accessible and easy to navigate for all players."
+          }
+        ]
+      },
+      {
+        "id": 38,
+        "title": "Ambient Sound System",
+        "description": "Implement a system for playing ambient sounds based on the environment and time of day to enhance immersion.",
+        "details": "Create an `AmbientSoundManager` node. It will have several `AudioStreamPlayer` children for different sounds (e.g., wind, crickets, birds). Based on the `time_of_day` from the `GameManager` and the player's current biome (once implemented), it will fade different audio streams in and out.",
+        "testStrategy": "Wait for the day/night cycle to transition from day to night. Verify that daytime ambient sounds (like birds) fade out and nighttime sounds (like crickets) fade in.",
+        "priority": "low",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design AmbientSoundManager Node Structure",
+            "description": "Define and create the AmbientSoundManager node with child AudioStreamPlayers for each ambient sound type (e.g., wind, crickets, birds).",
+            "dependencies": [],
+            "details": "Set up the node hierarchy in the scene, ensuring each AudioStreamPlayer is properly named and configured for its respective sound.",
+            "status": "pending",
+            "testStrategy": "Verify that each AudioStreamPlayer can play its assigned sound independently in the editor."
+          },
+          {
+            "id": 2,
+            "title": "Integrate Time of Day and Biome Detection",
+            "description": "Connect the AmbientSoundManager to the GameManager to receive time_of_day updates and prepare for biome integration.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement logic to listen for changes in time_of_day and, once available, the player's current biome. Ensure the manager can react to these changes.",
+            "status": "pending",
+            "testStrategy": "Simulate time_of_day changes and confirm the manager receives and logs updates."
+          },
+          {
+            "id": 3,
+            "title": "Implement Audio Fading Logic",
+            "description": "Develop the system to smoothly fade ambient sounds in and out based on time_of_day and biome.",
+            "dependencies": [
+              2
+            ],
+            "details": "Write scripts to adjust the volume of each AudioStreamPlayer, ensuring seamless transitions between different ambient soundscapes.",
+            "status": "pending",
+            "testStrategy": "Trigger transitions between day and night, and verify that sounds fade appropriately without abrupt changes."
+          },
+          {
+            "id": 4,
+            "title": "Configure 3D Audio and Spatial Effects",
+            "description": "Set up spatial audio properties and optional real-time effects (e.g., reverb zones) for immersive soundscapes.",
+            "dependencies": [
+              3
+            ],
+            "details": "Adjust AudioStreamPlayer settings for 3D sound, and add effects like reverb or filtering to reflect environmental changes (e.g., entering a cave).",
+            "status": "pending",
+            "testStrategy": "Move the player through different areas and confirm that spatial effects and audio positioning behave as expected."
+          },
+          {
+            "id": 5,
+            "title": "Test and Refine Ambient Sound Transitions",
+            "description": "Conduct comprehensive testing of ambient sound transitions across various times of day and biomes, refining parameters for immersion.",
+            "dependencies": [
+              4
+            ],
+            "details": "Play through day/night cycles and different biomes, adjusting fade durations, volumes, and effect parameters for optimal experience.",
+            "status": "pending",
+            "testStrategy": "Observe and document transitions, ensuring they are smooth and contextually appropriate; gather feedback for further tuning."
+          }
+        ]
+      },
+      {
+        "id": 39,
+        "title": "Particle Effects for Actions",
+        "description": "Add particle effects for various game actions like combat hits, crafting successes, and resource gathering impacts.",
+        "details": "Create several `GPUParticles3D` scenes for different effects (e.g., blood splatter, wood chips, magical sparks). These scenes will be configured with a short lifetime (`one_shot = true`). When an action occurs (e.g., a sword hits an enemy), instantiate the appropriate particle effect scene at the impact location.",
+        "testStrategy": "Hit a tree and verify that wood chip particles appear. Hit an enemy and verify blood splatter particles appear. Craft an item and check for a success particle effect at the crafting station.",
+        "priority": "low",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Particle Effect Concepts for Game Actions",
+            "description": "Identify and define the visual style and requirements for each particle effect needed for combat hits, crafting successes, and resource gathering impacts.",
+            "dependencies": [],
+            "details": "List all relevant game actions that require particle feedback. For each, specify the desired visual effect (e.g., blood splatter for combat, wood chips for gathering, magical sparks for crafting). Gather reference images or sketches to guide asset creation.",
+            "status": "pending",
+            "testStrategy": "Review the list of effects with the team and confirm that all required actions are covered and the visual direction is clear."
+          },
+          {
+            "id": 2,
+            "title": "Create GPUParticles3D Scenes for Each Effect",
+            "description": "Develop individual GPUParticles3D scenes in the engine for each identified effect, configuring parameters such as emission, lifetime, color, and texture.",
+            "dependencies": [
+              1
+            ],
+            "details": "For each effect, set up a new GPUParticles3D node. Adjust settings like emission shape, particle count, color gradients, and assign appropriate textures. Ensure each scene is set to one_shot = true for short-lived bursts.",
+            "status": "pending",
+            "testStrategy": "Preview each particle scene in isolation and verify that the effect matches the intended visual style and dissipates correctly."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Particle Effect Instantiation into Game Actions",
+            "description": "Implement logic to instantiate the correct particle effect scene at the appropriate location when a relevant game action occurs.",
+            "dependencies": [
+              2
+            ],
+            "details": "Modify action-handling scripts (e.g., combat, crafting, gathering) to spawn the corresponding GPUParticles3D scene at the impact or event location. Ensure the effect is positioned and oriented correctly relative to the action.",
+            "status": "pending",
+            "testStrategy": "Trigger each action in-game and confirm that the correct particle effect appears at the right place and time."
+          },
+          {
+            "id": 4,
+            "title": "Optimize Particle Effects for Performance",
+            "description": "Review and adjust particle system settings to ensure minimal performance impact, especially when multiple effects are active simultaneously.",
+            "dependencies": [
+              3
+            ],
+            "details": "Limit particle counts, use GPU instancing where possible, and optimize textures and shaders. Test with multiple simultaneous effects to ensure stable frame rates.",
+            "status": "pending",
+            "testStrategy": "Profile the game during heavy action sequences and verify that performance remains within acceptable limits."
+          },
+          {
+            "id": 5,
+            "title": "Test and Refine Particle Effects in Gameplay Context",
+            "description": "Conduct in-game testing of all particle effects during actual gameplay scenarios and refine parameters based on feedback.",
+            "dependencies": [
+              4
+            ],
+            "details": "Playtest combat, crafting, and gathering actions to observe particle effects in context. Gather feedback from testers and adjust timing, intensity, or visuals as needed for clarity and impact.",
+            "status": "pending",
+            "testStrategy": "Perform the following: hit a tree and verify wood chip particles appear; hit an enemy and verify blood splatter appears; craft an item and check for a success effect at the crafting station."
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "title": "Main Menu and Settings UI",
+        "description": "Create the main menu scene with options for 'New Game', 'Load Game', 'Settings', and 'Quit'.",
+        "details": "Create a new scene `MainMenu.tscn` with a `Control` node root. Add `Button` nodes for the options. 'New Game' will load the main game scene with a fresh state. 'Load Game' will call `GameManager.load_game()` and then switch to the main scene. 'Quit' will call `get_tree().quit()`.",
+        "testStrategy": "Launch the game. Verify the main menu appears. Test each button: 'New Game' starts a new session, 'Load Game' loads a saved file, 'Settings' opens the settings menu, and 'Quit' closes the application.",
+        "priority": "high",
+        "dependencies": [
+          13
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create MainMenu.tscn Scene Structure",
+            "description": "Set up a new scene named MainMenu.tscn with a Control node as the root, ensuring it is configured for UI layout.",
+            "dependencies": [],
+            "details": "In Godot, create a new scene, select 'User Interface' as the root node type (Control), and save it as MainMenu.tscn. This provides the foundation for the main menu UI elements.[1][4]",
+            "status": "pending",
+            "testStrategy": "Open the scene in the Godot editor and verify that the root node is a Control node and the scene is saved as MainMenu.tscn."
+          },
+          {
+            "id": 2,
+            "title": "Add and Arrange Menu Buttons",
+            "description": "Add Button nodes for 'New Game', 'Load Game', 'Settings', and 'Quit', and arrange them vertically using a container.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add a VBoxContainer or CenterContainer as a child of the Control node to arrange the buttons. Add four Button nodes as children, labeling them appropriately. Use layout presets to center the container on the screen.[2][4]",
+            "status": "pending",
+            "testStrategy": "Run the scene and verify that all four buttons are visible, labeled correctly, and arranged vertically in the center of the screen."
+          },
+          {
+            "id": 3,
+            "title": "Implement Button Functionality",
+            "description": "Connect each button to its respective function: start a new game, load a saved game, open settings, or quit the application.",
+            "dependencies": [
+              2
+            ],
+            "details": "Attach a script to the Control node or buttons. For 'New Game', load the main game scene with a fresh state. For 'Load Game', call GameManager.load_game() and switch to the main scene. For 'Settings', open the settings menu. For 'Quit', call get_tree().quit().[1][4]",
+            "status": "pending",
+            "testStrategy": "Click each button in the running game and verify that each triggers the correct action (scene change, load, settings menu, or application quit)."
+          },
+          {
+            "id": 4,
+            "title": "Design and Integrate Menu Visuals",
+            "description": "Add background visuals, game logo, and style the buttons for a polished main menu appearance.",
+            "dependencies": [
+              2
+            ],
+            "details": "Add a ColorRect or TextureRect for the background, import and position the game logo, and customize button styles using themes or custom properties to match the game's aesthetic.[1][4]",
+            "status": "pending",
+            "testStrategy": "Launch the main menu and verify that the background, logo, and button styles are visually appealing and consistent with the game's theme."
+          },
+          {
+            "id": 5,
+            "title": "Test and Refine Main Menu Interactions",
+            "description": "Perform comprehensive testing of the main menu, ensuring all UI elements function correctly and transitions are smooth.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Test the main menu on various screen sizes and aspect ratios. Verify that all buttons respond as expected, transitions between scenes are smooth, and the UI remains accessible and visually consistent.",
+            "status": "pending",
+            "testStrategy": "Launch the game, interact with each menu option, and confirm that all actions work as intended. Adjust layout or code as needed based on test results."
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-18T04:46:46.158Z",
+      "updated": "2025-07-18T05:04:18.725Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

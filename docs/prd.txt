@@ -1,0 +1,124 @@
+<context>
+# Overview
+This document outlines the project requirements for a first-person survival RPG game developed in Godot 4+. The game is intended for players who enjoy survival, base-building, and RPG elements. The core problem this game solves is providing a challenging and engaging survival experience with procedurally generated levels, ensuring high replayability. Its value lies in the combination of popular game mechanics within the open-source Godot engine, allowing for a feature-rich experience.
+
+# Core Features
+- **Base Building:** Players can construct bases for shelter, storage, and crafting. This is crucial for survival and progression. It will work by allowing the player to place pre-defined building blocks in the world.
+- **Inventory System:** The player will have a grid-based inventory to manage resources, tools, and equipment. This is essential for crafting and survival. The system will support item stacking, moving, and dropping. [1, 4, 7, 10, 17]
+- **Resource Gathering and Crafting:** Players can gather resources from the environment such as wood, stone, and ores. These resources are used to craft building components, tools, weapons, armor, and forging stations.
+- **Intelligent Enemy AI:** The game will feature enemies with AI that can navigate the environment, detect the player, and employ attack patterns, providing a challenging combat experience. [6, 15, 16, 20]
+- **Saving and Loading:** Players can save their progress and load it at a later time, a fundamental feature for any RPG. [11, 12, 24, 26, 35]
+- **Procedural World Generation:** Each level's environment will be procedurally generated, offering a unique experience with every playthrough. [9, 19, 21, 25, 32]
+- **Open-Source Assets:** All 3D models and sound effects will be sourced from open-source asset packs available online to keep development costs low.
+- **Levels and Bosses:** The game will have multiple levels, each with a unique boss. Defeating a boss will yield powerful loot and unlock the next procedurally generated level.
+- **First-Person Perspective:** The game will be played from a first-person point of view to enhance immersion. [2, 5, 8, 27, 31]
+- **Particle Effects:** Visual effects will be used for actions like crafting, combat, and environmental effects to enrich the player experience. [3, 14, 22, 23, 30]
+- **Dynamic Weather and Day-Night Cycle:** The game will feature changing weather patterns and a day-night cycle, affecting gameplay and visuals.
+- **Dynamic Lighting:** The lighting system will realistically reflect the time of day and weather conditions.
+- **Player Respawn:** Upon death, the player will respawn at their nearest constructed base.
+- **Ambient and Action Sounds:** The game will include ambient sounds for the environment and sound effects for player actions, sourced from online resources. [13, 18, 36, 42]
+- **Equipment Progression Tree:** A clear progression path for equipment will exist, allowing players to craft increasingly powerful gear.
+- **Equipment Power Measurement:** Equipment will have a power rating. Players will need to meet a certain power threshold to effectively combat tougher enemies and bosses.
+- **Skill Trees:** Players can invest skill points into active and passive skill trees to enhance their crafting, gathering, combat, and survival abilities.
+- **Menus and Settings:** The game will have proper main menus, in-game menus, and settings for resolution and other options.
+- **Realistic Movement and Physics:** Player, enemy, and boss movements will be smooth and physics-based for a more realistic and engaging experience. [28, 37, 38, 40, 43]
+
+# User Experience
+- **User Personas:** The target audience includes fans of survival games like "Rust" and "Ark: Survival Evolved," as well as players who enjoy RPGs with crafting and progression systems. They are typically looking for a challenging and long-term gameplay experience.
+- **Key User Flows:**
+    - **Initial Gameplay Loop:** The player starts in a new world, gathers basic resources, crafts initial tools, and builds a small starting base before the first night.
+    - **Progression Loop:** The player explores the world, gathers more advanced resources, crafts better equipment and stations, expands their base, and fights progressively harder enemies.
+    - **Boss Fight Loop:** The player prepares for a boss fight by crafting the best possible gear and stocking up on consumables. After defeating the boss, they acquire powerful drops and advance to a new, more challenging level.
+- **UI/UX Considerations:**
+    - The UI will be clean and intuitive, with clear indicators for health, hunger, thirst, and other vital stats.
+    - The inventory and crafting menus will be easy to navigate using a grid-based system.
+    - Building placement will be user-friendly, with a snapping system to aid construction. [33]
+    - Skill trees will be visually represented to clearly show progression paths.
+
+</context>
+<PRD>
+# Technical Architecture
+- **System Components:**
+    - **Player Controller:** A CharacterBody3D node with a first-person camera script. [2, 5, 8, 27, 31]
+    - **Inventory System:** A custom resource-based system to manage item data. [1, 4, 7, 10, 17]
+    - **Crafting System:** A dictionary-based system to define and handle crafting recipes.
+    - **Building System:** A grid-based placement system for constructing bases. [33]
+    - **Procedural Generation:** Using FastNoiseLite for generating terrain and resource distribution. [9, 19, 21, 25, 32]
+    - **Enemy AI:** NavigationAgent3D for pathfinding and state machines for behavior. [6, 15, 16, 20, 29]
+    - **Save/Load System:** Utilizing Godot's built-in JSON or custom resource saving capabilities. [11, 12, 24, 26, 35]
+    - **Game Manager:** A global script (autoload) to manage game state, player stats, and level progression.
+- **Data Models:**
+    - **ItemData:** A custom Resource defining properties of each item (name, description, stack size, etc.).
+    - **PlayerData:** A custom Resource to store player stats, inventory, and skill progression for saving and loading.
+    - **WorldData:** A data structure to save the state of the procedurally generated world, including player-built structures.
+- **APIs and Integrations:** The project will rely on Godot's built-in APIs. External libraries will not be a primary focus to maintain simplicity.
+- **Infrastructure Requirements:** The game will be developed for PC platforms (Windows, macOS, Linux) and distributed via platforms like Steam or itch.io.
+
+# Development Roadmap
+- **MVP (Minimum Viable Product) Requirements:**
+    1.  **Core Player Mechanics:** First-person controller with movement and jumping. [2, 5, 8, 27, 31]
+    2.  **Basic World:** A single, non-procedurally generated level for initial testing.
+    3.  **Basic Inventory:** A functional inventory system for picking up, dropping, and storing a few item types. [1, 4, 7, 10, 17]
+    4.  **Basic Crafting:** Ability to craft a few essential items from a simple menu.
+    5.  **Basic Resource Gathering:** Ability to gather one or two resource types from the environment.
+    6.  **Basic Enemy:** A single enemy type with simple "follow and attack" AI. [6, 16]
+    7.  **Basic Combat:** Player can attack and defeat the enemy.
+- **Phase 2: Core Survival and Building Features:**
+    1.  **Procedural Generation:** Implement procedural generation for the environment. [9, 19, 21, 25, 32]
+    2.  **Base Building:** Implement the core base building system. [33]
+    3.  **Expanded Crafting:** Add more crafting recipes and crafting stations.
+    4.  **Day/Night Cycle and Basic Lighting:** Implement a basic day-night cycle with corresponding lighting changes.
+    5.  **Saving and Loading:** Implement the ability to save and load the game state. [11, 12, 24, 26, 35]
+    6.  **Player Stats:** Introduce hunger and thirst systems. [39]
+- **Phase 3: RPG Elements and Content Expansion:**
+    1.  **Levels and Bosses:** Introduce the concept of levels with a unique boss for the first level.
+    2.  **Equipment Progression:** Implement a wider variety of tools, weapons, and armor with clear tiers.
+    3.  **Equipment Power:** Implement the equipment power measurement system.
+    4.  **Skill Trees:** Add basic active and passive skill trees.
+    5.  **Improved Enemy AI:** Enhance enemy AI with more complex behaviors. [20, 29]
+    6.  **Ambient Sounds:** Add basic ambient sounds. [13, 18, 36, 42]
+- **Phase 4: Polish and Refinement:**
+    1.  **Advanced Weather and Lighting:** Implement dynamic weather systems and more advanced lighting.
+    2.  **Particle Effects:** Add particle effects for various actions. [3, 14, 22, 23, 30]
+    3.  **Realistic Movement:** Refine player and enemy movement to be smoother and more physics-based. [28, 37, 38, 40, 43]
+    4.  **Menus and Settings:** Create the main menu, settings menu, and a polished in-game UI.
+    5.  **Content Generation:** Add more levels, bosses, enemies, items, and skills to ensure sufficient gameplay time.
+    6.  **Sound Design:** Implement a full range of sound effects for player actions, UI, and enemies.
+
+# Logical Dependency Chain
+1.  **Foundation:** Start with the player character. A functional first-person controller is the absolute base. [2, 5, 8, 27, 31]
+2.  **Interaction:** Implement a basic inventory and the ability to interact with and gather items from the world. This is the next logical step to make the character's existence in the world meaningful. [1, 4, 7, 10, 17]
+3.  **Creation:** Introduce a simple crafting system. This allows the player to use the items they have gathered.
+4.  **Environment:** Develop procedural world generation to create the space for the gameplay loop. [9, 19, 21, 25, 32]
+5.  **Survival:** Implement base building and the initial enemy AI. This establishes the core survival conflict. [33, 6, 16]
+6.  **Persistence:** Add saving and loading functionality to allow for longer play sessions. [11, 12, 24, 26, 35]
+7.  **Progression:** Build out the RPG elements like the equipment progression tree, power measurement, and skill trees.
+8.  **Structure:** Implement the level and boss system to provide clear goals for the player.
+9.  **Atmosphere:** Layer in the day/night cycle, weather, lighting, particle effects, and sound design to create an immersive experience.
+10. **Refinement:** Focus on polishing all systems, especially movement and combat, to feel responsive and realistic. [28, 37, 38, 40, 43]
+
+# Risks and Mitigations
+- **Technical Challenges:**
+    - **Procedural Generation Performance:** Large, detailed procedural worlds can be performance-intensive.
+        - **Mitigation:** Implement chunk-based loading and Level of Detail (LOD) systems to manage performance. Use efficient noise algorithms. [9]
+    - **Complex AI:** Creating truly "intelligent" AI is a significant challenge.
+        - **Mitigation:** Start with simple state-based AI and incrementally add complexity. Focus on creating believable and challenging behaviors rather than human-like intelligence. [6, 20]
+- **Figuring out the MVP:**
+    - **Scope Creep:** The extensive list of requirements can lead to an overly ambitious MVP that is never completed.
+        - **Mitigation:** Strictly adhere to the defined MVP requirements. The goal of the MVP is to have a playable, core gameplay loop, not a feature-complete game.
+- **Resource Constraints:**
+    - **Asset Creation:** While using open-source assets is planned, finding a consistent art style and all necessary assets can be time-consuming.
+        - **Mitigation:** Allocate specific time for asset sourcing and curation. Prioritize core gameplay assets first.
+    - **Development Time:** A single developer or small team will face a significant time commitment.
+        - **Mitigation:** Follow the phased development roadmap to ensure steady progress and maintain motivation. Break down large tasks into smaller, manageable chunks.
+
+# Appendix
+- **Research Findings:** The provided search results offer numerous tutorials and resources for implementing the required features in Godot 4, covering everything from inventory systems [1, 4, 7, 10, 17] and procedural generation [9, 19, 21, 25, 32] to enemy AI [6, 15, 16, 20] and saving/loading. [11, 12, 24, 26, 35]
+- **Technical Specifications:**
+    - **Engine:** Godot 4.2 or newer.
+    - **Scripting Language:** GDScript.
+    - **Target Platform:** PC (Windows, macOS, Linux).
+- **Asset Resources:**
+    - **3D Models:** Websites like Kenney.nl, OpenGameArt.org, and Sketchfab (with appropriate licensing filters).
+    - **Sounds:** Websites like Freesound.org, OpenGameArt.org, and Bfxr for generated sound effects. [13, 18, 36, 42]
+</PRD>
