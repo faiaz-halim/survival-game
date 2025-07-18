@@ -17,7 +17,7 @@
             "description": "Initialize a new Godot project using version 4.2 or higher.",
             "dependencies": [],
             "details": "Open the Godot editor and create a new project, specifying the project name and directory.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that the project opens successfully in the Godot editor and that the project.godot file is present."
           },
           {
@@ -28,7 +28,7 @@
               1
             ],
             "details": "Within the project directory, create the following folders: /scenes, /scripts, /assets, /ui. This helps maintain organization and scalability as the project grows[1][2].",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Confirm that all specified folders exist in the project directory and are visible in the Godot editor's FileSystem dock."
           },
           {
@@ -39,7 +39,7 @@
               1
             ],
             "details": "Add a .gitignore file at the root of the project. Ensure it excludes Godot-specific cache and import files (e.g., .import/, .godot/, .mono/, *.import, *.tmp)[2].",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run `git status` and verify that cache and import files are not listed as untracked or modified."
           },
           {
@@ -52,7 +52,7 @@
               3
             ],
             "details": "Run `git init` in the project root, add all files (excluding those in .gitignore), and make the initial commit.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Check that `git status` shows a clean working directory after the initial commit."
           },
           {
@@ -2711,7 +2711,7 @@
     ],
     "metadata": {
       "created": "2025-07-18T04:46:46.158Z",
-      "updated": "2025-07-18T05:04:18.725Z",
+      "updated": "2025-07-18T05:14:57.076Z",
       "description": "Tasks for master context"
     }
   }
